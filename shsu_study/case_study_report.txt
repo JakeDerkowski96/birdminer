@@ -1,0 +1,1642 @@
+
+
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+                    BIRDMINER: TWITTER DATA MINING AND REPORTING
+                           CREATED BY:  JAKE DERKOWSKI
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+                                    INTRODUCTION
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+    Birdminer is a user-configurable program that allows the user to configure the
+    way in which they would like to mine Twitter data. BirdMiner's different modes
+    give the user efficiency for all search configurations; for all the parameters.
+
+    This mode "birdminer.py --mode shsu" does not allow for configuration. Instead,
+    it performs, conducts, and reports a case study on Sam Houston State University
+    entirely on its own. For the conservation of computing power, the parameters in
+    are reduced to allow for easy testing and presentation of the power Birdminer
+    has.
+
+    This case study shows the frequency in which students' posts contain keywords
+    that indicate that they are "partying", or using drugs and/or drinking, and will
+    be used to give a percentage approximation of the students that also partake in
+    similar behaviors.
+
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+                        BACKGROUND INFORMATION/DATA COLLECTION
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+    There are only two search functions that collects all of the data that is user
+    in this study. The main function that collects all of the raw data uses global
+    positioning system (GPS) coordinates of Sam Houston State University as a focal
+    point, then scraps all tweets posted during the 2019 spring semester that were
+    posted within a 3 kilometer radius. This may limit the scope for BirdMiner by
+    excluding those who commute to campus; however, it also returns a sample that is
+    more concentrated of users that are actually students by capturing all of the
+    tweets that were made on or near campus. This radius of searching is far more
+    in- clusive then it initially sounds.
+
+    This radius was calculated based on the distances from student living apartment
+    complexes to campus. The distance from the Gateway apartments to campus was used
+    in calculating the radius because this is the complex that is the furthest from
+    campus but still provides a shuttle. This distance is 2.89km -- for simplicity
+    the we use the rounded 3 kilometers.
+
+    Sam Houston students (including those in graduate programs) equal to 20,938 -
+    therefore, represent approximately 54.2% of Huntsville's population (38,548).
+    With the given radius, the data collected should be primarily Sam Houston State
+    students because most live near campus, and make up most of the population of
+    the city.
+
+    The data can also be further verified by the second function used by Birdminer.
+    Birdminer export all of the data that was initially collected into a Database
+    'birdminer.db' which stores all of the data in an organized and secure fashion
+    (all data used in analysis will be drawn from this database). Birdminer selects
+    all of the distinct users from the 'users' table and exports the list to a csv
+    which the second function loops through and mines data for each user and then
+    stored into the 'users' table. Queries executed on this table provides more
+    certainty in verifying a user, but this will not be done for this program. This
+    is not necessary because it has been shown that the data collected is reliable
+    and this function takes a considerable amount of time to run. ***THIS FUNCTION
+    DOES NOT RUN AUTOMATICALLY -- MUST BE UNCOMMENTED***
+
+
+    Included within this directory will be the completed database file that
+    Birdminer created, so mining has to be done to test this program. However, the
+    results of a new search can possibly present different data analysis because
+    data may removed/ added to twitter since time of original mining.
+
+                                        ***sources cited at the end of document
+        
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+                                   EXAMINATION
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+        Data Summary of the Spring 2019 semester:
+
+                1535 were used in this study
+                8.34% of the SHSU student population.
+
+                Average post number: ~ 17;
+                actual stored in: tweet_frequency.csv
+
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     tweet index: 8 	1 contained: party
+tweet: I asked a guy at a party last night if his jersey supported gay pride cuz it basically had a flag on it and he said “no it’s retro” I-
+tweet index: 14 	2 contained: party
+tweet: "Let’s party likes it’s 1989🕶 @ Huntsville, Texas  https://www.instagram.com/p/BtKHXjmAqsw/?utm_source=ig_twitter_share&igshid=6muskrylrole …"
+tweet index: 28 	3 contained: bar
+tweet: When all 5 of your boyfriends walk into the same bar as you #KUWTK #KUWTK16 pic.twitter.com/KNGTDlZbMq
+tweet index: 59 	4 contained: drink
+tweet: 😂😂😂😂 frfr you must be drinking over there
+tweet index: 124 	5 contained: party
+tweet: "I just realized I ain’t been to a single club, party, or event all semester lol I have no life lmao"
+tweet index: 124 	6 contained: club
+tweet: "I just realized I ain’t been to a single club, party, or event all semester lol I have no life lmao"
+tweet index: 125 	7 contained: bar
+tweet: I knew y’all was on a budget @VIP_Eldridge https://twitter.com/barstoolsports/status/1115324680972300288 …
+tweet index: 336 	8 contained: high
+tweet: “I’m sorry that I’d rather be getting high than watching my family die..” 🎵
+tweet index: 382 	9 contained: bar
+tweet: "Honestly, I feel like me, @JordanSwilley, and @HarrisonHaley will always live somewhat close to each other. And @BeccaJoy15 ain’t going far https://twitter.com/rachel_barryy/status/1107766268189392897 …"
+tweet index: 384 	10 contained: drink
+tweet: "This morning, the car in front of me at Starbucks paid for my drink. It brought me to tears because nothing like that had ever happened to me before😭"
+tweet index: 431 	11 contained: Bar
+tweet: Barbados
+tweet index: 439 	12 contained: drink
+tweet: Must go now for the crawfish and drinks are good too I recommend only using cash
+tweet index: 451 	13 contained: party
+tweet: I want to throw a yacht party...☺️
+tweet index: 503 	14 contained: party
+tweet: After party in Huntsville not trinity ? #Shsu
+tweet index: 535 	15 contained: high
+tweet: Kansas looks like a high school team out there
+tweet index: 596 	16 contained: bar
+tweet: I pinky promises a guy that I’d dance with him tonight at the bar. I forgot. I’m sorry random guy. I hope i see you again.
+tweet index: 629 	17 contained: drink
+tweet: "So, today’s sermon at church talked about forgiveness and reconciliation. God says to forgive everyone and then work towards reconciling. Holding grudges is like drinking poison and hoping the other person dies, and I will no longer do this. As of today, I have forgiven everyone."
+tweet index: 648 	18 contained: beer
+tweet: *something about a dad bod* Dani: I bet he’s fun to cuddle with Me: His beer belly fits in the arch of your back
+tweet index: 651 	19 contained: high
+tweet: You know it’s summer in Texas when your thighs start sweating.
+tweet index: 688 	20 contained: Party
+tweet: Party this evening @ArnaudsCajun !!  Schools out #shsu & we are prepared to entertain!  Open tonight until 8pm++!  RETWEET for your chance to win our Alex Special! pic.twitter.com/uKPv1ewV2G – at Arnauds Cajun Kitchen
+tweet index: 701 	21 contained: bar
+tweet: This whole article has nothing to do with BTS but sure has a ton of scandal in it ALSO NOT involving BTS. You used their name for clicks? Grow tf up who runs this network you should be embarrassed https://twitter.com/CNN/status/1118188158225612801 …
+tweet index: 709 	22 contained: high
+tweet: Low key want an Apple Watch high key know I don’t need one but also....low key want the damn watch lol
+tweet index: 746 	23 contained: drunk
+tweet: I asked @Shelbs_99 how Chillifest was and she said “a guy tried to kiss me but I wasn’t drunk enough for that” 💀
+tweet index: 748 	24 contained: bar
+tweet: "Happy happy birthday @tori3kelly thanks for always being down to go to the bar, even if we are the only ones going! Have a great day! 🤪🍾 pic.twitter.com/boWUEhx64Y"
+tweet index: 922 	25 contained: drunk
+tweet: not excited for how drunk i’m ab to be tonight
+tweet index: 933 	26 contained: high
+tweet: One of my friends from high school is having twin boys and I just got twin gold fish. I guess you can say we are all growing up. #classof2012 #dobie2012
+tweet index: 999 	27 contained: Bar
+tweet: I am screaming!!!! https://twitter.com/BarkyBoogz/status/1117803680563179520 …
+tweet index: 1001 	28 contained: smoke
+tweet: I'm here for all her smoke!!! https://twitter.com/DoctorJonPaul/status/1117133902819147776 …
+tweet index: 1023 	29 contained: high
+tweet: Nah hunny I see it and its disgusting and disturbing. We come in so many shades and it was only until recently when dark men and women started being shown and given higher roles. I dam near cried when I saw Us. A whole family of Chocolate! I was in love.
+tweet index: 1101 	30 contained: Hangover
+tweet: Hangovers <<<<<<<<<<<<<<<
+tweet index: 1105 	31 contained: drink
+tweet: I know my liver fucked cause I just keep drinking lol
+tweet index: 1162 	32 contained: drunk
+tweet: I’m drunk
+tweet index: 1165 	33 contained: drunk
+tweet: I get to talking too much when im drunk
+tweet index: 1181 	34 contained: drunk
+tweet: i hate having drunk convos bro 😂😂
+tweet index: 1183 	35 contained: drunk
+tweet: just don’t ask me no questions drunk 😂
+tweet index: 1215 	36 contained: party
+tweet: I know it’s a pool party in a&m & then sfa
+tweet index: 1246 	37 contained: PARTY
+tweet: YALL COME TO DGS FOR MY BIRTHDAY PARTY FRIDAY 🙂
+tweet index: 1259 	38 contained: drink
+tweet: nons drinking no more
+tweet index: 1261 	39 contained: hungover
+tweet: whew ain’t been this hungover in a minnn
+tweet index: 1264 	40 contained: drunk
+tweet: drunk & irritated
+tweet index: 1265 	41 contained: smoke
+tweet: I need to smoke
+tweet index: 1296 	42 contained: Club
+tweet: "Calling all Kats!  10 AM-Registration at Raven's Nest Golf Club   11:30-AM Shotgun start  5:30 PM-BBQ and Social at Bowers Stadium  7 PM-Spring Game  $100 for golf registration, polo, lunch, and BBQ.  $10 for BBQ and tailgate at Bowers Stadium  Please RSVP to nick.olsson@shsu.edu pic.twitter.com/p8zQ6fiTnZ"
+tweet index: 1325 	43 contained: beer
+tweet: Yo can we all have the afternoon off go shotgun some beers and sit by the pool?
+tweet index: 1330 	44 contained: bar
+tweet: I got asked last night if Brier was my real name or my bar name... pic.twitter.com/Cr0qpQISUM
+tweet index: 1331 	45 contained: Bar
+tweet: Bartender *
+tweet index: 1337 	46 contained: bar
+tweet: "Come to 12th street bar in Huntsville. I typically work Mondays, Thursdays and Fridays. I wanna see this!"
+tweet index: 1380 	47 contained: bar
+tweet: Always read @erin_bartram. Trust me. https://twitter.com/erin_bartram/status/1115100196952772608 …
+tweet index: 1397 	48 contained: Club
+tweet: Thomas Jefferson is a great example of the ambiguity of religious identities. Definitely Nat Turner. And my students love Aimee Semple McPherson and the PTL Club for religion and consumerism.
+tweet index: 1421 	49 contained: HIGH
+tweet: SO GRATEFUL FOR THE OPPORTUNITY TO BE ASKED TO SPEAK TO THESE KIDS ABOUT MY LIFE  AS A TEENAGE MOTHER & MY DREAMS AS A HUNTSVILLE HIGH SCHOOL STUDENT & THE THINGS I'VE EXPERIENCED AS ADULT AND MY ACCOMPLISHMENTS.  #LordIfIJustTouchedOne🙏 pic.twitter.com/uJYz5HGAJx
+tweet index: 1472 	50 contained: high
+tweet: I wish I knew what I know now about working out and dieting in highschool
+tweet index: 1503 	51 contained: bar
+tweet: I’d bar hop with @Jakeeee_17 lmaoooooooooooooo https://twitter.com/PharaohSociety_/status/1111336438363246592 …
+tweet index: 1524 	52 contained: party
+tweet: Wow the grove closed the pool tonight cause people were trying to have a party 🤭
+tweet index: 1584 	53 contained: bar
+tweet: Over played in bars and whatever but not overrated https://twitter.com/33zmj6/status/1122006407161753600 …
+tweet index: 1733 	54 contained: HIGH
+tweet: This book has left me speechless. If you like modern day teen murder mystery novels... I HIGHLY recommend reading this book 🥰 #twocankeepasecretbook #sogood #karenmcmanus #iminlove @…  https://www.instagram.com/p/BxN1Sy6l9FTe3wukAp3adoqCpzLj5Qa9VfDSsI0/?igshid=vkoa4skvhe6o …
+tweet index: 1796 	55 contained: Smoke
+tweet: Gotta get it out the mud Nelly 😈 https://twitter.com/SmokeeRobinson4/status/1109989456579309568 …
+tweet index: 1813 	56 contained: party
+tweet: Free probate ❕  Lit Pregame ❕  Livest party in Texas 🦍 @ThetaMuAlphas Turning the Vill up today 😈 #SHSU #PVAMU #TAMUC #TAMU #UNT #UTA #TWU #TTU #UT #UTSA #UH #BU #LU #SFA #TSU pic.twitter.com/8uzbL08IEU
+tweet index: 1830 	57 contained: Smoke
+tweet: Gotta respect Dean BB Smoke 💨 https://twitter.com/Sweeneey_Todd/status/1117502905404227584 …
+tweet index: 1924 	58 contained: Smoke
+tweet: I killed Big Smoke
+tweet index: 1968 	59 contained: bar
+tweet: "My phone is dead, I’m barely able to get to my computer"
+tweet index: 1973 	60 contained: Smoke
+tweet: Smoke crack once you a crackhead ?¿?
+tweet index: 2012 	61 contained: drink
+tweet: People say I’v got a drinkin’ problem
+tweet index: 2054 	62 contained: drink
+tweet: Better drink the rest of that milk homeboi
+tweet index: 2178 	63 contained: drink
+tweet: Said the same person that drinks orange juice after brushing their teeth....
+tweet index: 2205 	64 contained: Party
+tweet: Go big or go home! Party hard!😝
+tweet index: 2218 	65 contained: beer
+tweet: 1 more run & it’s time for y’all to open up on em! PS I’m right here behind ya in the beer tent!
+tweet index: 2242 	66 contained: bar
+tweet: ♥️♥️♥️ https://twitter.com/kendallbart_/status/1126569076992749569 …
+tweet index: 2253 	67 contained: smoke
+tweet: It’s the ones that smoke blunts withcha that wanna come and getchaa
+tweet index: 2274 	68 contained: party
+tweet: I never had to run away from cows at a party untill last night
+tweet index: 2319 	69 contained: Bar
+tweet: Few band Name ideas  Desperado Avacado The Honey Onions Nine inch Fingernails Or Dirty Mike and the Boys @ 12th Street Bar  https://www.instagram.com/p/BvibzD-HqUKoJmEayM34DYPYjEnNgGh_T3iYNw0/?utm_source=ig_twitter_share&igshid=o5boaxwiiwfx …
+tweet index: 2323 	70 contained: drink
+tweet: I got the app so all drinks and shakes half priced when I order through it
+tweet index: 2324 	71 contained: drink
+tweet: "💀, Ion really be getting the shakes so I use the app cause the drinks 1/2 all day through the app"
+tweet index: 2350 	72 contained: party
+tweet: My homie girl was choking and this nigga gone say “you good” as he continues to play 2k... The whole party was like pic.twitter.com/NF2gxy4ZzR
+tweet index: 2354 	73 contained: drunk
+tweet: Yoooo 💀💀 I shouldn’t have drunk all this shit lmao
+tweet index: 2373 	74 contained: bar
+tweet: How ??? My ass can barely see in the day time how imma see inside a dark ass club 😭😭
+tweet index: 2373 	75 contained: club
+tweet: How ??? My ass can barely see in the day time how imma see inside a dark ass club 😭😭
+tweet index: 2394 	76 contained: party
+tweet: I didn’t invite anyone lmao  I needed to see if they reacted good without having my party squad there 😂💀
+tweet index: 2407 	77 contained: party
+tweet: "First off 😂😂 the way you and Nyree acted at the first party I DJ, I know y’all would be littest at the club"
+tweet index: 2407 	78 contained: club
+tweet: "First off 😂😂 the way you and Nyree acted at the first party I DJ, I know y’all would be littest at the club"
+tweet index: 2415 	79 contained: drink
+tweet: "I knew I wasn’t over the situation, when she tried to take me to Sonic and my ass said “ I got drinks at the house “ 😭😭"
+tweet index: 2480 	80 contained: bar
+tweet: I’m craving some good ass barbecue
+tweet index: 2486 	81 contained: club
+tweet: Grown ass men rlly be coming out the strip club -$400 like “She was feeling me bro” 😂
+tweet index: 2502 	82 contained: bar
+tweet: For my creative arts class this group did a country Cinderella & they were dancing as if they were in a country bar & I want someone to teach me how to dance 😭
+tweet index: 2505 	83 contained: drink
+tweet: Join us for the Biggest Valentines Party in Huntsville Thursday Feb. 14th. Great drink specials all night long and we are having a Stop Light Party!!! Green=Single Yellow=It’s Complicated…  https://www.instagram.com/p/BszNtOIBY-G/?utm_source=ig_twitter_share&igshid=1fdcr6phvwv09 …
+tweet index: 2505 	84 contained: Party
+tweet: Join us for the Biggest Valentines Party in Huntsville Thursday Feb. 14th. Great drink specials all night long and we are having a Stop Light Party!!! Green=Single Yellow=It’s Complicated…  https://www.instagram.com/p/BszNtOIBY-G/?utm_source=ig_twitter_share&igshid=1fdcr6phvwv09 …
+tweet index: 2506 	85 contained: drink
+tweet: Join us for the Biggest Valentine’s Party in Huntsville. Great drink specials All Night Long!! @ Shenanigans and Confetti's Beach Club  https://www.instagram.com/p/BtmwZeQh5Oi/?utm_source=ig_twitter_share&igshid=b6ghmw5yvbeg …
+tweet index: 2506 	86 contained: Party
+tweet: Join us for the Biggest Valentine’s Party in Huntsville. Great drink specials All Night Long!! @ Shenanigans and Confetti's Beach Club  https://www.instagram.com/p/BtmwZeQh5Oi/?utm_source=ig_twitter_share&igshid=b6ghmw5yvbeg …
+tweet index: 2506 	87 contained: Club
+tweet: Join us for the Biggest Valentine’s Party in Huntsville. Great drink specials All Night Long!! @ Shenanigans and Confetti's Beach Club  https://www.instagram.com/p/BtmwZeQh5Oi/?utm_source=ig_twitter_share&igshid=b6ghmw5yvbeg …
+tweet index: 2507 	88 contained: Party
+tweet: Y’all know where the Biggest Valentines Party will be at in Huntsville. Doors open at 8 and we will be kicking off our Stop Light Party!! @ Shenanigans and Confetti's Beach Club  https://www.instagram.com/p/Bt2EM5yhXzu/?utm_source=ig_twitter_share&igshid=bmuwv1tk9ge5 …
+tweet index: 2507 	89 contained: Club
+tweet: Y’all know where the Biggest Valentines Party will be at in Huntsville. Doors open at 8 and we will be kicking off our Stop Light Party!! @ Shenanigans and Confetti's Beach Club  https://www.instagram.com/p/Bt2EM5yhXzu/?utm_source=ig_twitter_share&igshid=bmuwv1tk9ge5 …
+tweet index: 2508 	90 contained: Party
+tweet: Tonight is the night for Love or Not!! Stop Light Party at the Biggest Valentines Party in Huntsville. Doors open at 8pm. @ Shenanigans and Confetti's Beach Club  https://www.instagram.com/p/Bt4jbAkhXpe/?utm_source=ig_twitter_share&igshid=hmozeg6sjjn5 …
+tweet index: 2508 	91 contained: Club
+tweet: Tonight is the night for Love or Not!! Stop Light Party at the Biggest Valentines Party in Huntsville. Doors open at 8pm. @ Shenanigans and Confetti's Beach Club  https://www.instagram.com/p/Bt4jbAkhXpe/?utm_source=ig_twitter_share&igshid=hmozeg6sjjn5 …
+tweet index: 2510 	92 contained: party
+tweet: Tickets now available online for purchase. Go check out our website  http://www.partyinhuntsville.com  and click on the events page to get your tickets!! @ Shenanigans and…  https://www.instagram.com/shenanigansconfettis/p/BvqDfSbBd0r/?utm_source=ig_twitter_share&igshid=w4rrgxf2s3za …
+tweet index: 2511 	93 contained: party
+tweet: Kevin Fowler w/ Danny Dillon Band Friday April 26th!!!  Tickets available now at Cavenders or online at  http://partyinhuntsville.com  @ Shenanigans and Confetti's Beach Club  https://www.instagram.com/shenanigansconfettis/p/BwFdwO8hWsN/?utm_source=ig_twitter_share&igshid=15410srwusaky …
+tweet index: 2511 	94 contained: Club
+tweet: Kevin Fowler w/ Danny Dillon Band Friday April 26th!!!  Tickets available now at Cavenders or online at  http://partyinhuntsville.com  @ Shenanigans and Confetti's Beach Club  https://www.instagram.com/shenanigansconfettis/p/BwFdwO8hWsN/?utm_source=ig_twitter_share&igshid=15410srwusaky …
+tweet index: 2512 	95 contained: Club
+tweet: Happy Easter to all from your Shenanigans Family. @ Shenanigans and Confetti's Beach Club  https://www.instagram.com/shenanigansconfettis/p/BwhjEe2hUhI/?utm_source=ig_twitter_share&igshid=9w2qv8mq9f6s …
+tweet index: 2513 	96 contained: party
+tweet: "Kevin Fowler w/ Danny Dillion Band Friday 4/26. Tickets available now at the club, Cavenders or online at  http://partyinhuntsvile.com . Doors open at 8pm!! @ Shenanigans and…  https://www.instagram.com/shenanigansconfettis/p/BwqAV5FBG6d/?utm_source=ig_twitter_share&igshid=1qqwdprqfoppx …"
+tweet index: 2513 	97 contained: club
+tweet: "Kevin Fowler w/ Danny Dillion Band Friday 4/26. Tickets available now at the club, Cavenders or online at  http://partyinhuntsvile.com . Doors open at 8pm!! @ Shenanigans and…  https://www.instagram.com/shenanigansconfettis/p/BwqAV5FBG6d/?utm_source=ig_twitter_share&igshid=1qqwdprqfoppx …"
+tweet index: 2514 	98 contained: Club
+tweet: Big thanks to Kevin Fowler and The Danny Dillion Band for an amazing concert!! @ Shenanigans and Confetti's Beach Club  https://www.instagram.com/shenanigansconfettis/p/BwwEDIphDWm/?utm_source=ig_twitter_share&igshid=thb3e01pp8ew …
+tweet index: 2522 	99 contained: high
+tweet: It truly is amazing to watch @SpecialOlympics world games on abc. Athletes at the highest level able to compete for their country! Powerful and inspiring!! #NoExcuses #AnythingIsPossible
+tweet index: 2568 	100 contained: High
+tweet: @LilTunechi Let’s hear you remix Prisoner of the Highway by Ronnie Milsap.
+tweet index: 2631 	101 contained: party
+tweet: That after party shower>>>
+tweet index: 2651 	102 contained: wasted
+tweet: Giants just wasted a pick 🤦🏾‍♂️
+tweet index: 2664 	103 contained: bar
+tweet: @bartgregory Reid Humphries.
+tweet index: 2666 	104 contained: high
+tweet: That one black king that stepped up to lead us to a higher standard in society always get betrayed by these coons.
+tweet index: 2689 	105 contained: Bar
+tweet: Heart breaking romance in #Asunder and Splintered the 2nd of the trilogy on Amazon and Barnes and noble. Heart pounding action too https://twitter.com/TexasBookClub/status/1105684735731355648 …
+tweet index: 2689 	106 contained: Club
+tweet: Heart breaking romance in #Asunder and Splintered the 2nd of the trilogy on Amazon and Barnes and noble. Heart pounding action too https://twitter.com/TexasBookClub/status/1105684735731355648 …
+tweet index: 2693 	107 contained: club
+tweet: Why y’all getting broken hearted over a girl that won’t get looked at twice at a strip club.
+tweet index: 2706 	108 contained: drink
+tweet: I don’t have friends just people I like drinking with.
+tweet index: 2725 	109 contained: beer
+tweet: I want a beer and a blowjob.
+tweet index: 2741 	110 contained: high
+tweet: The speed limits in some parts of our state are already high enough to kill some. I’ve been on a road where this speed limit is actually 85
+tweet index: 2829 	111 contained: bar
+tweet: I currently barely have that much 🙃😂
+tweet index: 2837 	112 contained: drink
+tweet: Cinco de drinko** https://twitter.com/LindseyBreaux1/status/1121619424761585664 …
+tweet index: 2934 	113 contained: high
+tweet: Buddy. Your but I’d high you going to break yo spine https://twitter.com/18kwayy/status/1108858038335795200 …
+tweet index: 2976 	114 contained: bar
+tweet: Dline https://twitter.com/reggiebarlow/status/1113481295957561344 …
+tweet index: 3020 	115 contained: club
+tweet: Welcome to the club https://twitter.com/_Javionglass/status/1116715554193195009 …
+tweet index: 3103 	116 contained: high
+tweet: Boy he been like that since highschool https://twitter.com/RashanAGary/status/1121600476972298240 …
+tweet index: 3144 	117 contained: club
+tweet: Have y’all ever seen someone club someone as making a tackle. 😂😂😂
+tweet index: 3288 	118 contained: wasted
+tweet: "Ngl I was disappointed in the party tonight, wasted money"
+tweet index: 3288 	119 contained: party
+tweet: "Ngl I was disappointed in the party tonight, wasted money"
+tweet index: 3353 	120 contained: drink
+tweet: Fasho you know we gotta take a shot or drink Thursday
+tweet index: 3356 	121 contained: drunk
+tweet: I’m feelin drunk
+tweet index: 3529 	122 contained: Beer
+tweet: @JohnBon04559059 @TheDaveTrain fucking Ismael!!! https://twitter.com/WorstBeerBlog/status/1110960150964129792 …
+tweet index: 3531 	123 contained: drink
+tweet: All makes a face 2 when he drinks it all like ufff these are strong...
+tweet index: 3533 	124 contained: drink
+tweet: Tucker walks around with a empty can and pretends to drink I know its empty cuz he doesn't gag after he drinks it
+tweet index: 3551 	125 contained: Bar
+tweet: "For the love of god, he is broken in half!!! #AEW taking it to a whole new level!!! https://twitter.com/JustinBarrasso/status/1113472700754878465 …"
+tweet index: 3588 	126 contained: beer
+tweet: But first... go get me a beer!!!
+tweet index: 3622 	127 contained: beer
+tweet: @AlexVeens saw this and thought of u lol https://twitter.com/lagunitasbeer/status/1121876299797032960 …
+tweet index: 3626 	128 contained: smoke
+tweet: "Had and interesting conversations with @notrudyayb1 that fucker brainwashed me to subscribe to his YouTube Channel with 0-3-5 he then gave me a ""❤""  Go check out his new vid, his coming up with some pretty cute shit! #zerothreefive #smokeonthewatermelon https://youtu.be/tUaF0RaUnSo "
+tweet index: 3640 	129 contained: high
+tweet: "Top 10 bands i wouldn't have had survived high school without...  1- Muse (forever will be a MUSE fan) 2- HIM (and love said no greatest hits) 3- MCR (first 2 albums) (the only good albums) (ok, ok, the black parade was descent but not the best) (fuck everything else after that)"
+tweet index: 3642 	130 contained: drunk
+tweet: 2 drunk to figure out if I fucked up.... fuck it!!!
+tweet index: 3660 	131 contained: high
+tweet: @notrudyayb1 ur guitar skills are highly underrated... cant wait 2 see u guitar-wars with @RobScallon @JaredDines unless they 2 scared... muhahahaha!!!! #letsmakeithappen #zerothreefive
+tweet index: 3720 	132 contained: high
+tweet: Had high anxiety today.
+tweet index: 3762 	133 contained: weed
+tweet: "Pussy, weed, and alcohol"
+tweet index: 3840 	134 contained: high
+tweet: "Who do you think you are?! Huh?!! Well, that's alright. You still got me 😜 ""Jar of Hearts"" by @christinaperri. Good song and a throwback to my senior year of high school 🎵 @ Huntsville,…  https://www.instagram.com/p/BuHNe18Aw5Z/?utm_source=ig_twitter_share&igshid=1028fjvgme9sz …"
+tweet index: 3868 	135 contained: Club
+tweet: Good times 😄 What a silly place that is.  New goal: Make time for non-work related situations and occasionally relax 🙃 @ Shenanigans and Confetti's Beach Club  https://www.instagram.com/p/BwSIQ6ygllC/?igshid=1kgmyv1w7amkx …
+tweet index: 3869 	136 contained: High
+tweet: I have no idea what's going on. High five? ... 🖐 @ Sam Houston State University  https://www.instagram.com/p/BwdZvAHAi0E/?igshid=z55ph5jtahu0 …
+tweet index: 3883 	137 contained: bar
+tweet: Shut up! Lol https://twitter.com/TulsiGabbard/status/1114188954423693312 …
+tweet index: 3956 	138 contained: High
+tweet: Visited Huntsville High School today. The funniest questions I’m asked during school visits: “Do you have a boyfriend?” And “How much money do you make?”    Answers: No and plenty! ☺️
+tweet index: 3959 	139 contained: drink
+tweet: You: “I suffer from crippling depression.”  Them: “Have you tried drinking more water?”  😐
+tweet index: 3966 	140 contained: High
+tweet: Aye who got a case Highkey I can’t risk being without a phone no more
+tweet index: 4055 	141 contained: Bar
+tweet: "Tried to cheat and have Barbarcoa gorditas and the didn't even add it to the order so baby got me a salad, if that isn't a sign idk what is cause wow... but like thank you?"
+tweet index: 4066 	142 contained: hungover
+tweet: Cuddling Mariana's hungover ass like.... pero anoche??? https://twitter.com/PurelySexual/status/1124970199923302400 …
+tweet index: 4118 	143 contained: high
+tweet: "Southland Conference Player of the Year @LookAtNumber2 of @SamHoustonState has signed with our agency after a great senior year. The Texas native averaged 14 points, 6 rebounds and 2 assists a game while shooting a conference high 44% from the 3 point line pic.twitter.com/90bxCFgpsN"
+tweet index: 4125 	144 contained: bar
+tweet: Lmaoooo imagine getting your haircut and your barber gets tackled
+tweet index: 4268 	145 contained: Party
+tweet: It’s almost that time 👀 #HelluvaNight Gunna After Party  3.27.19 🤪
+tweet index: 4276 	146 contained: Party
+tweet: 90s Party Presales $7 all week cash app accepted don’t wait last minute 🗣 #TheClassicVollumell
+tweet index: 4279 	147 contained: party
+tweet: 90’s party presales hmu❗️❗️ #SHSU #TheClassicVolumell pic.twitter.com/k0nnRWTJnz
+tweet index: 4289 	148 contained: party
+tweet: I only have a few presales left for the 90’s party #TheClassicVollumell get them before they  gone and go up  ! I can delivery them too hmu 🗣
+tweet index: 4457 	149 contained: High
+tweet: High School Musical is my shit to the highest degree and I’m not ashamed
+tweet index: 4467 	150 contained: Bar
+tweet: I mean what is there to talk about 😪 https://twitter.com/Barter6ZN/status/1121150499686760448 …
+tweet index: 4483 	151 contained: Bar
+tweet: WHAT WAS GONNA HAPPEN ?? https://twitter.com/Barrydabney/status/1122547639394996224 …
+tweet index: 4492 	152 contained: drunk
+tweet: I’d rather be drunk rn
+tweet index: 4511 	153 contained: party
+tweet: My friends really outdid themselves with my surprise party. I love these people man
+tweet index: 4514 	154 contained: bar
+tweet: "when you realize you barely have a month and a half until EDC 🙂🙂🙂🙂🙂🙂🙂 I’m not freaking out, you are 🙃 https://twitter.com/princesshaless_/status/1113306185829179392 …"
+tweet index: 4566 	155 contained: drink
+tweet: Ain’t even started drinking 😬🍾
+tweet index: 4579 	156 contained: bar
+tweet: Phyllis Wheatley Elementary  Paul L. Dunbar Elementary  Billy Earl Dade Middle School Wilmer Hutchins High School Sam Houston State University https://twitter.com/G_riel15/status/1124813895275880449 …
+tweet index: 4579 	157 contained: High
+tweet: Phyllis Wheatley Elementary  Paul L. Dunbar Elementary  Billy Earl Dade Middle School Wilmer Hutchins High School Sam Houston State University https://twitter.com/G_riel15/status/1124813895275880449 …
+tweet index: 4626 	158 contained: High
+tweet: "The JTC has arrived near Huntsville Tx. Once I am settled, I will give another video update on the lesson from the High School this morning. Somebody may say, E, why don’t you go buy some…  https://www.instagram.com/p/BvUvnEDn4MO/?utm_source=ig_twitter_share&igshid=1g9bfylcm8qdl …"
+tweet index: 4699 	159 contained: party
+tweet: I went to the pool party lookin like a bad bitch left lookin like a fuckin goblin and shiii
+tweet index: 4762 	160 contained: drunk
+tweet: I think getting drunk without getting high is better than getting drunk and high
+tweet index: 4762 	161 contained: high
+tweet: I think getting drunk without getting high is better than getting drunk and high
+tweet index: 4801 	162 contained: hangover
+tweet: And the hangover begins...
+tweet index: 4834 	163 contained: drunk
+tweet: I’m gonna get drunk 🤪🤪🤪🤪
+tweet index: 4888 	164 contained: drink
+tweet: I drink sprite
+tweet index: 4961 	165 contained: drink
+tweet: I need a drink 😩
+tweet index: 4971 	166 contained: high
+tweet: I havent had nobody make me fell like my prices was to high in a long time😭💀
+tweet index: 5006 	167 contained: bar
+tweet: "Lol I really be by myself, at the bar cracking up at Twitter, laughing out loud"
+tweet index: 5178 	168 contained: party
+tweet: "“we’re having a party, he’s invited, i’m going to kill him”"
+tweet index: 5179 	169 contained: drink
+tweet: i really went to heb and got ingredients for a pink drink based off of a tik tok. don’t ask me if i’m ok because you know what the answer it is.
+tweet index: 5211 	170 contained: High
+tweet: First playoff game today @ College Station High School. Game starts at 6 💚 #playoffs2019 #freshmanszn #grindtime pic.twitter.com/5RawLZVv7E
+tweet index: 5216 	171 contained: bar
+tweet: Huntsville needs a karaoke bar
+tweet index: 5220 	172 contained: High
+tweet: 🚨Walk off in Huntsville! 🚨Hunter Hearn’s 2 run homer gives the Bearkats a 6-5 win. Highlights at 10 on @kbtxsports.
+tweet index: 5250 	173 contained: high
+tweet: Tina literally just asked me if I was high😂😂😂
+tweet index: 5255 	174 contained: High
+tweet: High key pissed this chick in my class made my professor not wanna go through our pictures in class today... I WAS TRYNA FLEX BIIIIITCH.
+tweet index: 5307 	175 contained: Wasted
+tweet: Nothing gets me back to my regular self than reciting every word to ‘Wasted’. Fuck alllll the bull shit 🤘🏼🔥
+tweet index: 5386 	176 contained: weed
+tweet: You must divide before multiplying in this case scenario. This problem is quickly weeding out the people who don’t know the true rules of PEMDAS!
+tweet index: 5412 	177 contained: high
+tweet: "I don’t know why I still procrastinate, I thought I learned from my mistakes I made doing that in high school"
+tweet index: 5419 	178 contained: drink
+tweet: Happy 21st bday @madsfielder remember to drink “responsibly” tonight 😜 pic.twitter.com/8oJtH2Bsmn
+tweet index: 5444 	179 contained: high
+tweet: "“To have the welfare and harmony of the fraternity at heart, striving ever to make our lives a symphony of high ideals” ❤️ #badgeday19 @ Sam Houston State University  https://www.instagram.com/p/BunUEKiBOSx/?utm_source=ig_twitter_share&igshid=11bwjxv4xru4q …"
+tweet index: 5447 	180 contained: high
+tweet: Use ya damn cruise control on the highway https://twitter.com/OriginalFrank_/status/1106956859645284352 …
+tweet index: 5458 	181 contained: drink
+tweet: "Spending my cinco de drinko studying for these 5 finals :,)"
+tweet index: 5475 	182 contained: high
+tweet: Check out this dime from former @TheCougarWay QB Ty Brock (@chewbrockka11 ) to Coree Compton. More highlights from the @BearkatsFB ‘s first day of full pads spring practice tonight at 6 on KAGS pic.twitter.com/kHO3h9siyL
+tweet index: 5482 	183 contained: high
+tweet: Perfect night at The Don for some baseball. @BearkatsBSB is hosting Houston — highlights tonight at 10 on KAGS pic.twitter.com/EyqBrMQHd2
+tweet index: 5559 	184 contained: HIGH
+tweet: After seeing Caelynn my baby Fever is at an ALL TIME HIGH............ SOOOOO who’s trying to go in half on a baby
+tweet index: 5594 	185 contained: bar
+tweet: I’d bar hop with @BrookeeCC  Oh yes https://twitter.com/PharaohSociety_/status/1111336438363246592 …
+tweet index: 5620 	186 contained: high
+tweet: Summer workouts with the football coaches. That’s it. Other than that high school was absolutely hell on earth. https://twitter.com/uncleshay23/status/1115051858593185792 …
+tweet index: 5672 	187 contained: drunk
+tweet: I used to be love drunk But now I'm hungover I'll love you forever Forever is over We used to kiss all night Now it's just a bar fight So don't call me crying Say hello to goodbye 🎵
+tweet index: 5672 	188 contained: hungover
+tweet: I used to be love drunk But now I'm hungover I'll love you forever Forever is over We used to kiss all night Now it's just a bar fight So don't call me crying Say hello to goodbye 🎵
+tweet index: 5672 	189 contained: bar
+tweet: I used to be love drunk But now I'm hungover I'll love you forever Forever is over We used to kiss all night Now it's just a bar fight So don't call me crying Say hello to goodbye 🎵
+tweet index: 5694 	190 contained: bar
+tweet: If you think about it the bar is just an adult day care
+tweet index: 5736 	191 contained: party
+tweet: @BrookeeCC needs to come to Huntsville and party
+tweet index: 5757 	192 contained: bar
+tweet: Trying to get @DerrickDrake18 in a vehicle after the bar when he’s mad should be an Olympic sport too @austin_scott82 @T_Calhoun_ @Bmcdaniel74 https://twitter.com/knox_skyler/status/1119270098206896137 …
+tweet index: 5773 	193 contained: bar
+tweet: This is why we say that https://twitter.com/barstoolsports/status/1119640257912287232 …
+tweet index: 5797 	194 contained: bar
+tweet: I dead ass was like why is Courtney reading a book at the bar and who took the pic🤣
+tweet index: 5816 	195 contained: drunk
+tweet: Gosh damn it I’m drunk at 3 am and have work at 9:45am😅😅
+tweet index: 5920 	196 contained: party
+tweet: I’m trying to pay off college so I can come party in Florida
+tweet index: 5957 	197 contained: drink
+tweet: Me: I’m not drinking  @T_Calhoun_ & @austin_scott82 : hey kass since you’re not drinking when a guy buys you a drink just give it to us https://twitter.com/RacheLynn_Pozzi/status/1126332173424971776 …
+tweet index: 5966 	198 contained: drink
+tweet: It’s cinco de drinko and I have work at 4 🤦🏽‍♀️😐
+tweet index: 5997 	199 contained: bar
+tweet: My wife and I both literally LOL’d 😂 https://twitter.com/jasonbarfield/status/1114505159294504960 …
+tweet index: 6054 	200 contained: bar
+tweet: Thank you @jasonbarfield for letting me sit in with you to call the Bearkat Basketball games! Had a great getting do something I have wanted to try! Appreciate it! pic.twitter.com/NPSf7Wl7Py
+tweet index: 6145 	201 contained: Club
+tweet: Preciate that Clubo !
+tweet index: 6163 	202 contained: bar
+tweet: First of all.. What is a TEENAGE girl doing at a college bar in the first place? https://twitter.com/LJWorld/status/1113561496263561216 …
+tweet index: 6197 	203 contained: Bar
+tweet: City Hall Cafe and Pie Bar on the way home! pic.twitter.com/cNCmEt1GfQ
+tweet index: 6292 	204 contained: high
+tweet: "Continue to work hard in high school, don't worry about being popular, your senior year will be a blast, and get your drivers license asap https://twitter.com/euphoricalist/status/690339626679177217 …"
+tweet index: 6338 	205 contained: Bar
+tweet: shit I am ecstatic. https://twitter.com/VianceBarrera/status/1107347826936299520 …
+tweet index: 6344 	206 contained: Bar
+tweet: Ms. Baron 2nd period class in 6th grade. 😂😂 https://twitter.com/houtexmike/status/1126255723263012864 …
+tweet index: 6355 	207 contained: smoke
+tweet: abt to smoke me a nice blunt and gts :)
+tweet index: 6373 	208 contained: smoke
+tweet: nigga yachty don’t even smoke lmaoo
+tweet index: 6378 	209 contained: high
+tweet: "Mfsbe talking bout struggling and shit and they grew up different man I know a few of y’all mfs and y’all don’t even eat left overs 🤣🤣🤣How tf you was struggling and mfs to good for left overs 😂, a early am high thought for the 🧢’s"
+tweet index: 6385 	210 contained: Bar
+tweet: Happy Glo Day To a Real Nigha @BabyBarbados 🇧🇧🛸💊👹🐐❤️🧬🧬🧬💯💯
+tweet index: 6401 	211 contained: drunk
+tweet: "I was drunk dab last night, woke up with one of them hangovers that even a blunt don’t help, it really made my shit worse"
+tweet index: 6401 	212 contained: hangover
+tweet: "I was drunk dab last night, woke up with one of them hangovers that even a blunt don’t help, it really made my shit worse"
+tweet index: 6403 	213 contained: High
+tweet: Highkey on the cavs That was a super team
+tweet index: 6421 	214 contained: party
+tweet: Is it weird I rather stay in and have a movie night with my bf (who I don’t see all the time) rather then go out and party.....
+tweet index: 6468 	215 contained: drink
+tweet: It’s beer just fucking drink it? https://twitter.com/FuckinggCorry/status/1107404179297861632 …
+tweet index: 6468 	216 contained: beer
+tweet: It’s beer just fucking drink it? https://twitter.com/FuckinggCorry/status/1107404179297861632 …
+tweet index: 6469 	217 contained: bar
+tweet: I want to wish my beautiful girlfriend a happy 21st birthday! Can’t wait to get messed up with you Friday and Saturday 🎉 🍺 @escobaramy_ pic.twitter.com/1cOUDcpHVv
+tweet index: 6514 	218 contained: Bar
+tweet: "Due to weather, Varsity will be playing first at 11:00 followed by JV. Games will be played at Katie Barr Park!"
+tweet index: 6636 	219 contained: Bar
+tweet: Best one in the draft after this season.. @Ju_heard_ https://twitter.com/BarstoolDucks/status/1113116011765489664 …
+tweet index: 6721 	220 contained: bar
+tweet: @TheChiddWay FAMILY!!! Congrats my brother!! You continue to set the bar higher for your peers! Easy man to idolize🙏🏽
+tweet index: 6721 	221 contained: high
+tweet: @TheChiddWay FAMILY!!! Congrats my brother!! You continue to set the bar higher for your peers! Easy man to idolize🙏🏽
+tweet index: 6785 	222 contained: Bar
+tweet: @dh_simba7 I think he like you bro 🗣😂🙏🏽🙏🏽🙏🏽 https://twitter.com/BarstoolOSU/status/1119329491195711489 …
+tweet index: 6804 	223 contained: Club
+tweet: #GetoutTheClubJoe pic.twitter.com/8QaXhjEBKs
+tweet index: 6809 	224 contained: Club
+tweet: #GetoutTheClub challenge starting now lol
+tweet index: 6834 	225 contained: bar
+tweet: My barber 🗣🗣🖤 thanks bruh https://twitter.com/_kingRL/status/1120923920583020546 …
+tweet index: 6854 	226 contained: high
+tweet: Thanks lil day!! Love you too!! Keep ya head high and keep pressing for everything you owed! https://twitter.com/therealbabyday/status/1121248110104252416 …
+tweet index: 6889 	227 contained: High
+tweet: Bearkat Softball is on fire and this Montgomery High graduate is a big part of it. They are #2 in the Conference and 1 game out of first.  Go Bearkats @ Don Sanders Stadium  https://www.instagram.com/p/BwSia7LBaAn/?utm_source=ig_twitter_share&igshid=13tn3cm8h9kxy …
+tweet index: 6917 	228 contained: High
+tweet: Yamborghini High by A$AP Rocky
+tweet index: 6936 	229 contained: club
+tweet: I’m officially apart of the “cries in the library while studying for finals” club ☹️
+tweet index: 6948 	230 contained: drunk
+tweet: "Ready for a beach day with the girls, I’m tryna be buried in the sand n drunk"
+tweet index: 6954 	231 contained: smoke
+tweet: my chemistry class makes me want to smoke crack
+tweet index: 6957 	232 contained: Drunk
+tweet: Drunk n sad goodnight
+tweet index: 6959 	233 contained: Bar
+tweet: Strong Barbie vibes with these nails rn
+tweet index: 6963 	234 contained: weed
+tweet: kinda unfair how I can’t smoke weed but ok
+tweet index: 6963 	235 contained: smoke
+tweet: kinda unfair how I can’t smoke weed but ok
+tweet index: 7004 	236 contained: DRUNK
+tweet: WHY DID DRUNK MORGAN JUST CALL MY JOB AND CALL IN FOR ME??????????? I DIDNT EVEN WANT TO CALL IN
+tweet index: 7029 	237 contained: drunk
+tweet: Would like to be drunk at humps rn
+tweet index: 7049 	238 contained: bar
+tweet: Tell me why I cut 4 pounds of jalapeños bare handed and my hands feel like I got gassed all over again
+tweet index: 7094 	239 contained: drink
+tweet: Want to sip n drink and chill but I have a whole paper to write and am 8AM o man
+tweet index: 7130 	240 contained: high
+tweet: My higher grade is in stats.. should I just change my major fuck
+tweet index: 7173 	241 contained: stoned
+tweet: @marie__yo https://twitter.com/stoned2thabones/status/1104489038256300032 …
+tweet index: 7181 	242 contained: high
+tweet: It’s crazy to me at how much I have changed since high school.
+tweet index: 7182 	243 contained: high
+tweet: "Yes I’m still that same Boujee high maintenance bitch, but now I got some mf culture✊🏿 and I will whoop yo ass. https://twitter.com/Mr_TaMarion/status/1106756445897408518 …"
+tweet index: 7210 	244 contained: drunk
+tweet: I was also drunk😂 https://twitter.com/Mr_TaMarion/status/1111382970193985538 …
+tweet index: 7211 	245 contained: stoned
+tweet: The best feeling https://twitter.com/stoned2thabones/status/1110944552972509184 …
+tweet index: 7219 	246 contained: stoned
+tweet: I’m still gone hit that hoe tho https://twitter.com/stoned2thabones/status/1113486886062915586 …
+tweet index: 7239 	247 contained: drink
+tweet: "Did we mention food and drinks will be provided? !😀Tomorrow (Thursday, April 25) is our event with Ted Irving at 6pm in the Dan Rather’s Building Room 301 - Everyone is welcome to attend this event #SHSU 🙌🏽 pic.twitter.com/6adkuwxlWe"
+tweet index: 7251 	248 contained: high
+tweet: Dude was a different beast in high school 🥶 https://twitter.com/BradBallisLife/status/1116845183130394625 …
+tweet index: 7304 	249 contained: Smoke
+tweet: @SmokeeRobinson4 yeah LBs we came a long way 🤧
+tweet index: 7316 	250 contained: Smoke
+tweet: Y’all hear that Chain Smoke 💨 https://twitter.com/ThetaMuAlphas/status/1115299914748243968 …
+tweet index: 7322 	251 contained: Smoke
+tweet: I know y’all ain’t take a South west pic w/o us 😤 @SmokeeRobinson4 @shoeheadQ https://twitter.com/MAJIN2UU/status/1117553414379061253 …
+tweet index: 7384 	252 contained: club
+tweet: Finna join the club real soon 😢
+tweet index: 7397 	253 contained: party
+tweet: Game Of Thrones watch party 🤔 #GOT
+tweet index: 7407 	254 contained: wasted
+tweet: Moral of the story is he is a wasted potential character that has nothing to offer to the story and is the Yamcha of the series 🤷🏾‍♂️
+tweet index: 7422 	255 contained: Club
+tweet: Appreciate that Clubbo 🤙🏾
+tweet index: 7456 	256 contained: smoke
+tweet: Good thing I only smoke promethazine
+tweet index: 7459 	257 contained: club
+tweet: What club did you get? And what’s stopping you from getting out there and hittin’ that thang?!
+tweet index: 7479 	258 contained: High
+tweet: I love that my campus is playing High School Musical in one spot and there’s a guy preaching about Jesus in another
+tweet index: 7490 	259 contained: drunk
+tweet: If I drunk text you later I’m sorry
+tweet index: 7504 	260 contained: BAR
+tweet: BARS.
+tweet index: 7523 	261 contained: High
+tweet: High key it might be
+tweet index: 7543 	262 contained: drink
+tweet: "Awe I hope you feel better. Get some rest, eat and drink water!!"
+tweet index: 7562 	263 contained: drink
+tweet: @pepsi is way better than @CocaColaCo. I can even drink Pepsi warm.
+tweet index: 7573 	264 contained: high
+tweet: It's not a bad thing to be hard on yourself. That just means you have high standards for yourself. Just make sure those standards are realistic and obtainable.
+tweet index: 7646 	265 contained: high
+tweet: "Won't you take me to  Funky town!  Yes Towlie is my favorite to!!  ""You want to get high?""  Freaking love it."
+tweet index: 7670 	266 contained: party
+tweet: Join us for our end of the semester party! Meet us at the Kat Klub for some fun games and prizes! pic.twitter.com/KF0SCVxp9G
+tweet index: 7732 	267 contained: party
+tweet: When @MuyGrandePapi sees the last white girl leave the party https://twitter.com/peyton_chesser/status/1109313749704417281 …
+tweet index: 7733 	268 contained: high
+tweet: "She don’t like roses, she likes whiskey and coke.. she gets me high like one more toke 🎶🎶🔥"
+tweet index: 7741 	269 contained: Drunk
+tweet: Rumple. Drunk.
+tweet index: 7754 	270 contained: drink
+tweet: "Just try to quit smoking, real back the drinkin’, don’t always tell her everything your thinking, and Dance her when she needs dancin’"
+tweet index: 7760 	271 contained: drunk
+tweet: You only kiss me when you’re drunk 🎶🎶🔥
+tweet index: 7761 	272 contained: high
+tweet: Nothing 200 miles of texas highway cant fix 🤙🏻
+tweet index: 7783 	273 contained: smoke
+tweet: I fw Kevin Gates but he does have a smoker voice 😂
+tweet index: 7822 	274 contained: Party
+tweet: Pool Party 👀😌 pic.twitter.com/vCuWgTwHFj
+tweet index: 7887 	275 contained: high
+tweet: Hey y’all so I work at Firehouse Subs... this past weekend a Huntsville family was in a terrible car accident and 3 kids that attended Huntsville ISD and a former Huntsville high student that just graduated died this past weekend. They were going to a Drill Team Competition.
+tweet index: 7891 	276 contained: bar
+tweet: *SHSU https://twitter.com/kbarbalena/status/1113473073775284224 …
+tweet index: 7905 	277 contained: Party
+tweet: CJ Block Party April 19 11:30-1pm 🤗🤗🤗
+tweet index: 7917 	278 contained: Party
+tweet: I swear I lost 30lbs at Trap Party 😑 it was soooo mf hot
+tweet index: 8023 	279 contained: High
+tweet: Elementary: JJ McMillian  Mark Twain   Middle School:  Atwell   High School:  South Oak Cliff   College:  Sam Houston State Univ. https://twitter.com/mmdvnz/status/1124522674888290304 …
+tweet index: 8071 	280 contained: bar
+tweet: Nike Woman’s available in stores and over the phone @leebaron2 👟 @ Lee Baron Fashions  https://www.instagram.com/p/BxQrNcvgNFC/?utm_source=ig_twitter_share&igshid=rv4onqdd2udt …
+tweet index: 8125 	281 contained: party
+tweet: "Saturday, April 6th the day is booked !!  #MoochMadness The official Houston Vs Dallas basketball match off !📍The Church 3-8pm  #TheClassicVol2 A real 90’s party. 10pm-2am. Baby Fairgrounds. Get y’all fits ready, ❗️❗️"
+tweet index: 8134 	282 contained: party
+tweet: "Saturday, April 6th the day is booked !!  #MoochMadness The official Houston Vs Dallas basketball match off !📍The Church 3-8pm  #TheClassicVol2 A real 90’s party. 10pm-2am. Baby Fairgrounds. Get y’all fits ready, ❗️❗️"
+tweet index: 8143 	283 contained: Party
+tweet: 90s Party Presales $7 all week cash app accepted don’t wait last minute 🗣 #TheClassicVollumell GET AT ME❗️❗️
+tweet index: 8170 	284 contained: PARTY
+tweet: TOOOODAAAAY ‼️ LAST TO GET $7 Presales for the LIVEST PARTY OF THE YEAR 🔥 #TheClassicVollumell is TOMORROW 🤪 & WE GOING TF UP & TAKING IT TF BACK 🚫🧢 #SHSU HMU before you have to pay @ the door 🥶
+tweet index: 8219 	285 contained: Drunk
+tweet: Tonight #SHSU Lets Turn Up   Last Trap Thursday Of The Semester   $5 Get You Drunk   Special $15 Sections All Night All Sections Come With Hookah   2 Of Sam Houston’s Hottest DJ’S  @SlickkkRickk & @_kennoo In Da Mix
+tweet index: 8249 	286 contained: club
+tweet: WOW an empty gym 😍 come down to the club house NOW before it fills up again! pic.twitter.com/N6KXWD7nxA
+tweet index: 8250 	287 contained: club
+tweet: Check out Greek life of SHSU! They ❤ our club house and so will you! Come take a tour TODAY 👍 pic.twitter.com/lzdB1wf5Lx
+tweet index: 8252 	288 contained: club
+tweet: Dive & Chill starts tomorrow 🎱 Come down to the clubhouse from 1-5PM to hang and get a special treat! pic.twitter.com/dDJmpUYpOo
+tweet index: 8267 	289 contained: high
+tweet: "I am using Zar (the ‘international’ version) this semester, upper level with a couple of grad students. The examples are helpful.  I also give a lot of lecture notes to highlight the info and then go through the example calculations followed by going through them using R."
+tweet index: 8277 	290 contained: drunk
+tweet: I gotta find a bar to get drunk at and watch this game tonight
+tweet index: 8277 	291 contained: bar
+tweet: I gotta find a bar to get drunk at and watch this game tonight
+tweet index: 8278 	292 contained: drink
+tweet: I'm gonna be living by you here soon 😎 then you can come drink with me lol
+tweet index: 8297 	293 contained: bar
+tweet: Need a handlebar mustache ASAP
+tweet index: 8308 	294 contained: Drink
+tweet: Drink water
+tweet index: 8340 	295 contained: high
+tweet: I should've went to old high damnit 😂😂😂 and we probably would've been best friends lmao
+tweet index: 8417 	296 contained: beer
+tweet: Here’s my game plan for my 100 mile run. I wrote it on a napkin while having a #beer - basically I have no game plan just need to know which aid stations I need to put my…  https://www.instagram.com/ultrashannon/p/BtVDU2oBZMR/?utm_source=ig_twitter_share&igshid=1fueuwzdncxp4 …
+tweet index: 8492 	297 contained: party
+tweet: We are having a party tonight!! In room CHSS 140 at 6:30pm. We will have pizza 🍕 and a prize! We will also pick NEW OFFICERS!! 🐶 #shsu #shsukiss #samhoustonstateuniversity @ Sam Houston…  https://www.instagram.com/p/BwUaqVFAn6Z/?utm_source=ig_twitter_share&igshid=15gskn4oatnyy …
+tweet index: 8534 	298 contained: Bar
+tweet: "Awe! Today we say goodbye to our amazing Administrative Coordinator Barbara Miller who has been with #SHSU for 5 years!!! She has been such an important part of our #StudentActivities family, but is starting a new chapter in her life! We are excited for you & will miss you!! 🧡💙 pic.twitter.com/hhKid9TYvm"
+tweet index: 8588 	299 contained: smoke
+tweet: "It’s #smokehousethursday at Old Main! Chicken/Sausage/Pork, beans and Jalapeño Cornbread! #shsudining #oldmainmarket pic.twitter.com/oTyuzzvJrS"
+tweet index: 8592 	300 contained: high
+tweet: "Ke Ke do you love me?! Ke Ke is an education major, loves playing 🏀 & is from Longview, TX. She’s been with Aramark almost a year. Her dream job,become a high school govt teacher & coach basketball. Show Ke Ke &Steak ‘n Shake some 💗on #WeCareWednesday! #shsudining pic.twitter.com/NNPaB4aKRd"
+tweet index: 8618 	301 contained: high
+tweet: highlight of my crappy day: @maxgsuarez and Cody saying I look like malfoy
+tweet index: 8709 	302 contained: drink
+tweet: Just stumbled across a YouTube channel of a guy chugging various drinks as fast as he can and it’s the greatest thing I’ve ever witnessed
+tweet index: 8741 	303 contained: wasted
+tweet: Kemba Walker is 29 and wasted his best years in Charlotte
+tweet index: 8800 	304 contained: Bar
+tweet: Happy birthday dawg https://twitter.com/BJTheBarbarian/status/1126723415954444289 …
+tweet index: 8826 	305 contained: smoke
+tweet: young thug want all the smoke https://twitter.com/ItsKanjii/status/1112829050140217345 …
+tweet index: 8881 	306 contained: high
+tweet: "idk yet, but i’m feeling that high B"
+tweet index: 8890 	307 contained: high
+tweet: Why can’t we be exempt from finals like we were in high school?
+tweet index: 8935 	308 contained: drink
+tweet: Can’t drink w/o thinking about you
+tweet index: 8940 	309 contained: drunk
+tweet: Do you really even know that I love you if I haven’t drunk called ?
+tweet index: 8986 	310 contained: drunk
+tweet: "Tell me you love me when you’re drunk, so that I know how you really feel when you’re sober"
+tweet index: 9013 	311 contained: drunk
+tweet: Excuse what I say when I’m drunk 🥴 🤦🏾‍♀️
+tweet index: 9049 	312 contained: drunk
+tweet: This has to be soo trippy to walk down when you’re drunk 🥴 https://twitter.com/41Strange/status/1126591882388168704 …
+tweet index: 9129 	313 contained: Club
+tweet: Thank You Clubby !! ❤️❤️
+tweet index: 9159 	314 contained: club
+tweet: Thank you clubbbbb 😭❤️
+tweet index: 9288 	315 contained: party
+tweet: Welcome to the party 🎉 https://twitter.com/scorley_/status/1110430517646815237 …
+tweet index: 9324 	316 contained: beer
+tweet: "It’s got the biggest skies you’ve seen, the coldest beer you’ve ever drank..... https://twitter.com/Morgan_Evans/status/1124754543022170113 …"
+tweet index: 9328 	317 contained: party
+tweet: So we’re having #DHC party at the #CMTAwards DONE ✅ https://twitter.com/coleswindell/status/1125826526442926082 …
+tweet index: 9334 	318 contained: party
+tweet: This would be awesome to get at the #DHC party 🎉 that still needs to be announced 😁 https://twitter.com/MikeKasuba/status/1126470273195290624 …
+tweet index: 9404 	319 contained: bar
+tweet: 🧡💙 https://twitter.com/jasonbarfield/status/1120854987670794241 …
+tweet index: 9448 	320 contained: party
+tweet: "Me - a vegan watching my family eat ... ribs, chicken, chopped beef sandwiches, potato salad, green beans cooked in butter, chips and cake at my little sisters graduation party 🥺 they always forget about me lol pic.twitter.com/hBva4bbLkO"
+tweet index: 9465 	321 contained: Bar
+tweet: I wonder if Barr read the 7 million pages in the evidence or the 700 page summary of the Mueller report.
+tweet index: 9468 	322 contained: Bar
+tweet: Does he know it is about a million pages long and that the summary is 700 pages long? I sincerely doubt that Barr did not.
+tweet index: 9481 	323 contained: high
+tweet: The US is higher than many other countries in mother mortality in childbirth.  This is partially due to the high number of Caesarian sections. I believe any politician should aim at making childbirth safer for every woman.
+tweet index: 9531 	324 contained: bar
+tweet: @javipuente_15 and I just sang tequila for karaoke @ 12th Street bar   Power moves only
+tweet index: 9643 	325 contained: drink
+tweet: "I’m sick but I’m drinking for bro graduation, fuck it 🤦🏾‍♂️"
+tweet index: 9660 	326 contained: Drink
+tweet: Drinking a Striker IPA by @CopperheadBeer @ Potato Shack —  http://untp.beer/s/c741614662
+tweet index: 9660 	327 contained: Beer
+tweet: Drinking a Striker IPA by @CopperheadBeer @ Potato Shack —  http://untp.beer/s/c741614662
+tweet index: 9661 	328 contained: Drink
+tweet: Drinking a Medusa by @CopperheadBeer @ Potato Shack — http://untp.beer/s/c741618347
+tweet index: 9661 	329 contained: Beer
+tweet: Drinking a Medusa by @CopperheadBeer @ Potato Shack — http://untp.beer/s/c741618347
+tweet index: 9729 	330 contained: Bar
+tweet: I have the biggest weak spot for Barbecue...more specifically Ribs 🤤
+tweet index: 9756 	331 contained: high
+tweet: I HAVE to get a thigh piece
+tweet index: 9778 	332 contained: high
+tweet: It’s finna hit the high 80s this week...Time to start wearing less and going out more
+tweet index: 9780 	333 contained: bar
+tweet: My cj professor is so Embarrassing LMAOOOOOOhelpmeOOOO
+tweet index: 9792 	334 contained: high
+tweet: Wow you’re STILL in high school ? Grow up... https://twitter.com/TerrryGrantham/status/1116047859265105920 …
+tweet index: 9971 	335 contained: drunk
+tweet: Shawn I need you to get with the program so I can be the drunk aunty.
+tweet index: 10017 	336 contained: HIGH
+tweet: GENERALS WITH THE HIGHEST SCORE OF THE COMPETITION SO FAR!!! 😱❤️😭
+tweet index: 10080 	337 contained: high
+tweet: I’m highly considering it 😉
+tweet index: 10093 	338 contained: high
+tweet: How!? They hit again? And had the highest score yesterday!?
+tweet index: 10156 	339 contained: bar
+tweet: That moment when Laz tells you to run some dirt on it..... Sounds like me taLking to a student/cadet lol. 😂😂😂 #barkleymarathons #barkleyfallclassic #laz #ultrarunning #run #runner…  https://www.instagram.com/p/BtgQ33Gh8hr/?utm_source=ig_twitter_share&igshid=1qs115y9u3pi6 …
+tweet index: 10163 	340 contained: smoke
+tweet: Dont smoke if you smoke to be cool! Smokers recognize smokers💯 https://twitter.com/elibrown25/status/1109101854045233152 …
+tweet index: 10199 	341 contained: bar
+tweet: That gas jus put bars on my brain💯
+tweet index: 10210 	342 contained: high
+tweet: When u trying to get high in school it is😅🤣 https://twitter.com/7evenSoFuego/status/1114755675652075525 …
+tweet index: 10245 	343 contained: weed
+tweet: When did EVERYBODY start smoking weed?
+tweet index: 10388 	344 contained: drunk
+tweet: Bro I’m feelin good den a bitch . Got fulla dat weed and I been takin shots I’m really drunk asf but I feel good asf nigga”🤣🤣 https://twitter.com/lilpokeyy/status/1104550227095289856 …
+tweet index: 10388 	345 contained: weed
+tweet: Bro I’m feelin good den a bitch . Got fulla dat weed and I been takin shots I’m really drunk asf but I feel good asf nigga”🤣🤣 https://twitter.com/lilpokeyy/status/1104550227095289856 …
+tweet index: 10456 	346 contained: Bar
+tweet: Thanks @AndyCastR0b0t for capturing this sick moment of me and Beefs getting ready to rock it out with taylorcourtmusic.  #latergram #nofilter @ 12th Street Bar  https://www.instagram.com/p/BvcqoAEBQ1v/?utm_source=ig_twitter_share&igshid=1bxc33ygu12q …
+tweet index: 10529 	347 contained: bar
+tweet: Currently @Chilis 2 margs deep by myself at the bar go for it girl
+tweet index: 10579 	348 contained: bar
+tweet: 💀💀💀💀💀the fact I’m barely realizing how bad that line is
+tweet index: 10679 	349 contained: high
+tweet: I was high ass hell holding that baby 💀
+tweet index: 10879 	350 contained: drink
+tweet: I can’t eat so i think I’m just get a bottle of dusse and drink my life away
+tweet index: 10889 	351 contained: drink
+tweet: That’s the only thing i been drinking water and Gatorade
+tweet index: 11047 	352 contained: drunk
+tweet: I might go out tonight get drunk long time wit this college shit finally finished couple more days til graduation 👨🏽‍🎓
+tweet index: 11149 	353 contained: wasted
+tweet: My time is to precious to be wasted
+tweet index: 11206 	354 contained: drunk
+tweet: Getting drunk asf tn🙃
+tweet index: 11208 	355 contained: drunk
+tweet: Lmfaoooo my friends drunk aaf and im sober dab😩
+tweet index: 11281 	356 contained: high
+tweet: "high key not even good, 0/10 https://twitter.com/TwitterMoments/status/1124279184140857345 …"
+tweet index: 11285 	357 contained: drink
+tweet: This is what I get for not eating before drinking .
+tweet index: 11311 	358 contained: drunk
+tweet: The level of drunk I’m at is hilarious 🙃
+tweet index: 11323 	359 contained: drink
+tweet: It’s not to late to drink on this here St. Patrick’s Day.
+tweet index: 11392 	360 contained: high
+tweet: When you realize your fan ain’t been on the highest setting since you moved in 🤦🏽‍♀️
+tweet index: 11451 	361 contained: beer
+tweet: 😂😂😂 lowkey thats how Daniel looked playing beer pong last night 😂💀
+tweet index: 11498 	362 contained: party
+tweet: I’m do ducking hungry at this party rn. Bruh
+tweet index: 11523 	363 contained: CLUB
+tweet: IM CRYING IN THE CLUB RN OMFG
+tweet index: 11525 	364 contained: high
+tweet: These shits used to be at the DOLLAR STORE. Anything higher than that . Y’all did it to y’all selves https://twitter.com/TamaraJanelle/status/1124371591532556288 …
+tweet index: 11529 	365 contained: Drunk
+tweet: Drunk calls be havin him sayin all kinds of slick shit 😂
+tweet index: 11542 	366 contained: drunk
+tweet: I ran up my apartment stairs drunk... rip my bruised up leg 😪
+tweet index: 11549 	367 contained: drink
+tweet: What you drinkin
+tweet index: 11567 	368 contained: bar
+tweet: "I was there too!!!😭💀 cut my legs up on barbed wire, I was pissed."
+tweet index: 11610 	369 contained: drunk
+tweet: I’m one year away from being a whole adult she needs calm down. I Fr could be going to parties high and drunk all the time but I’m not soooooo
+tweet index: 11610 	370 contained: high
+tweet: I’m one year away from being a whole adult she needs calm down. I Fr could be going to parties high and drunk all the time but I’m not soooooo
+tweet index: 11631 	371 contained: High
+tweet: So High by DojaCat sounds better on SoundCloud lol also I’ve never realized this but I’ve been listening to her music forever lol
+tweet index: 11641 	372 contained: bar
+tweet: ☹️☹️😭😭 https://twitter.com/itsbarbielx/status/1111108958301941760 …
+tweet index: 11860 	373 contained: High
+tweet: "............. after hours of deliberations with the Council of High Intelligence and Education Findings (C.H.I.E.F), it has been determined that this post will be categorized under the terminology “isn’t it” https://twitter.com/extramayonayse/status/1112522315575619584 …"
+tweet index: 11875 	374 contained: drink
+tweet: drinking on a monday night >>><<<
+tweet index: 11897 	375 contained: drink
+tweet: i’m convinced that i drink dumb bitch juice on a daily bc if yall heard the stuff that i be saying......... WHEW 💀
+tweet index: 11955 	376 contained: drunk
+tweet: drunk don is HILARIOUS 💀
+tweet index: 12098 	377 contained: weed
+tweet: "lmfao weed, don’t smoke anyways https://twitter.com/Nikia_Raq/status/1098966397831577600 …"
+tweet index: 12098 	378 contained: smoke
+tweet: "lmfao weed, don’t smoke anyways https://twitter.com/Nikia_Raq/status/1098966397831577600 …"
+tweet index: 12108 	379 contained: drunk
+tweet: bro everytime i rewatch my vids from getting drunk for the 1st time makes me cringe to the MAXXXXX 😰
+tweet index: 12264 	380 contained: drunk
+tweet: "wine drunk. that’s it, that’s the tweet 🥴"
+tweet index: 12352 	381 contained: drink
+tweet: I hate forcing myself to drink my coffee that’s gone cold but i paid for it dammit ima drink all of it.
+tweet index: 12475 	382 contained: club
+tweet: Chile. Tryna club after a bike ride. First mistake.
+tweet index: 12482 	383 contained: party
+tweet: She just changed her Twitter to party gets me wetter
+tweet index: 12486 	384 contained: drunk
+tweet: I’ve came to the realization that anytime I go out with Keisy I end up drunk drunk
+tweet index: 12488 	385 contained: bar
+tweet: Me at the bar or the club https://twitter.com/sabs0ul/status/1110382692607025152 …
+tweet index: 12488 	386 contained: club
+tweet: Me at the bar or the club https://twitter.com/sabs0ul/status/1110382692607025152 …
+tweet index: 12515 	387 contained: drunk
+tweet: Bitch I’m drunk lol
+tweet index: 12532 	388 contained: drunk
+tweet: Got drunk last night and woke up with no hangover #winning
+tweet index: 12532 	389 contained: hangover
+tweet: Got drunk last night and woke up with no hangover #winning
+tweet index: 12542 	390 contained: drunk
+tweet: Really want to go get drunk but it’s only Tuesday so let me stop
+tweet index: 12543 	391 contained: drunk
+tweet: Sitting tonight out but Thursday I’m getting drunkkkkkkkk hehe 😜
+tweet index: 12544 	392 contained: drunk
+tweet: I love drunk me lol I’m so fun
+tweet index: 12549 	393 contained: High
+tweet: I was ready to get High and my pen isn’t charged 🥺
+tweet index: 12564 	394 contained: drink
+tweet: I’m ready to drinkkkkkkk
+tweet index: 12565 	395 contained: drink
+tweet: Well drink some more lol cause I’ve been drinking already 😂
+tweet index: 12612 	396 contained: high
+tweet: high key stressed the fuck out. tooooooo much shit happening at once
+tweet index: 12632 	397 contained: High
+tweet: Madisonville Elementary                        Madisonville Intermediate                       Madisonville Junior High                            Madisonville High School                         Sam Houston State University https://twitter.com/HolmesStasia/status/1124546736654049280 …
+tweet index: 12696 	398 contained: weed
+tweet: You know them butterflies you get when you start talking to someone new? I get those about some good weed 💀
+tweet index: 12736 	399 contained: High
+tweet: Highlight of the day so far: I am currently getting a pizza for my lunch even though I get off work in an hour
+tweet index: 12737 	400 contained: high
+tweet: All I did at work was tweet and one full highlight
+tweet index: 12739 	401 contained: high
+tweet: I got high and ate all my gushers the other day. Now sober abi wants gushers but doesn’t have gushers money.
+tweet index: 12741 	402 contained: drink
+tweet: At this point idk if my back hurts because of work or the way I sleep or I don’t drink enough water or I need a chiropractor or I’m pregnant. Let’s hope it’s the work/sleep thing.
+tweet index: 12759 	403 contained: drunk
+tweet: Just threw up in the back of academy’s parking lot. I’m not even drunk. I hate life rn frfr
+tweet index: 12779 	404 contained: high
+tweet: This child raped me my junior year of high school. Now he wants to pretend it’s all good? LMAOOOOO pic.twitter.com/zoPb0MPP9k
+tweet index: 12820 	405 contained: high
+tweet: Needa boo fr now tired of gettin high af alone 😔 pic.twitter.com/lW8Q0hH6L2 – at The BearKats Of Sam Houston
+tweet index: 12839 	406 contained: bar
+tweet: Please tell me how you’re supposed to be a bartender and we ask for lemon drop shots (which are normally shaken) but she brought them hot and I asked if they were chilled AND SHE PUT THEM IN THE FRIDGE...... then says “idk if they would turn out the same if I shook them” 💀
+tweet index: 12879 	407 contained: Club
+tweet: Look at my Club 💙 https://twitter.com/0v0_marsalis/status/1115075913543188481 …
+tweet index: 12932 	408 contained: party
+tweet: Beautiful weather for a day party 👀 right? @WOWWomen_
+tweet index: 13039 	409 contained: bar
+tweet: It’s any many mighty moe for me https://twitter.com/lexibarone/status/1110320453099442182 …
+tweet index: 13097 	410 contained: bar
+tweet: "Can the fact that my rent ($560) AND tuition payment ($1,700) due today be an April Fools joke #shsu barely surviving even with 3 jobs 🙄 #ThisIsAmerica"
+tweet index: 13099 	411 contained: Bar
+tweet: ANYTIME NICKI ON THE RADIO❗️ (take notes) @NICKIMINAJ Respect The Queen 👑 #Barbz @QueenRadioB1 pic.twitter.com/JlTWPVDg7K
+tweet index: 13169 	412 contained: Club
+tweet: Thanks for being my best friends 💕 pic.twitter.com/PKTO2wJ8kV – at Shenanigans & Confettis Beach Club
+tweet index: 13242 	413 contained: drink
+tweet: I’m never drinking.
+tweet index: 13246 	414 contained: drunk
+tweet: "I got drunk before I left my house, which is where I messed up😂"
+tweet index: 13249 	415 contained: bar
+tweet: I’m so tired of being a bartender🤦🏽‍♀️
+tweet index: 13346 	416 contained: DRUNK
+tweet: YES BITCH I KNOW EVERY WORD TO EVERY SONG WE’LL WATCH AT BIANCAS OR IN PADRE WHEN WERE DRUNK ASF
+tweet index: 13367 	417 contained: bar
+tweet: I took one bite of a kind bar & somehow chocolate is EVERYWHERE
+tweet index: 13380 	418 contained: high
+tweet: Wore an Oakwood basketball playoff shirt to school & two professors commented on it. Lol sorry I have a million shirts from high school 🤷‍♀️
+tweet index: 13389 	419 contained: drunk
+tweet: "Daisia and I drove to Huntsville, got day drunk, and then sobered up, and now we are about to drive back home 😂 I love day trips"
+tweet index: 13517 	420 contained: high
+tweet: Everyone that went to my high school https://twitter.com/ElizabethCan2/status/1115459333448450048 …
+tweet index: 13521 	421 contained: bar
+tweet: Seeing @JouslynePeinado crying at the bar is one of my top 10 highlights at SHSU
+tweet index: 13521 	422 contained: high
+tweet: Seeing @JouslynePeinado crying at the bar is one of my top 10 highlights at SHSU
+tweet index: 13573 	423 contained: party
+tweet: Is that the day of your birthday party or something ?😂
+tweet index: 13615 	424 contained: high
+tweet: Besides a select few from high school... I’ve honestly found my true life long friends in college...
+tweet index: 13658 	425 contained: bar
+tweet: PERIOD! https://twitter.com/lilbarbacoa/status/1126542024675475456 …
+tweet index: 13691 	426 contained: high
+tweet: (Swipe for some good/weird highlights) ••• My freshman year and first ever NCAA season is over and it all happened so quick. I’m extremely proud of my girls…  https://www.instagram.com/p/BwSpw_zDvs-Xb_WF8XYPibCUhfF8kZCadanSsA0/?utm_source=ig_twitter_share&igshid=1xmfzvq4c3un1 …
+tweet index: 13720 	427 contained: party
+tweet: "Let’s party babe 😉 @ Huntsville, Texas  https://www.instagram.com/p/BuPjyNrnuBV/?utm_source=ig_twitter_share&igshid=hlrb0tprtr7w …"
+tweet index: 13725 	428 contained: bar
+tweet: Why why why??? I give it 5-6 years if that he’ll ask to get traded Phillies pick him up that be nice I hope I’m right. The best player of this generation and has barely had any playoff experience damn shame. https://twitter.com/Ken_Rosenthal/status/1108015876744404997 …
+tweet index: 13728 	429 contained: High
+tweet: Respect from one of the best coaches ever to coach to one of the best players to ever play ✊🏻✊🏻 https://twitter.com/HoHighlights/status/1108535374941487104 …
+tweet index: 13731 	430 contained: drunk
+tweet: August 27th Florida man drunk and naked sets house on fire while trying to bake cookies 😂 https://twitter.com/g_pratimaaa/status/1108036166731726850 …
+tweet index: 13751 	431 contained: high
+tweet: If you don’t know who Bonnie and Clyde are you’re really uneducated on American history. Watch the highwaymen on Netflix if you don’t know them or want a better understanding of there story. It’s a great movie.
+tweet index: 13754 	432 contained: high
+tweet: Tonight I will be playing in my first competitive baseball game since I was a sophomore in high school. After my surgery I was told I wouldn’t be able to play any type of sport again. Well today I’ll be defining the odds. Thank you to the good Lord for being my rock!! #Blessed
+tweet index: 13837 	433 contained: high
+tweet: Anyone know any good hair salons in Huntsville that won’t charge an arm & a leg for highlights and a trim??
+tweet index: 13897 	434 contained: High
+tweet: Floresville Kindergarten  Floresville Primary  Floresville (south) Elementary  Floresville North Elementary  Floresville Middle School  Floresville High School Sam Houston State University https://twitter.com/hanhannicoleee/status/1124517423967801345 …
+tweet index: 13912 	435 contained: drunk
+tweet: A drunk high five means more than a sober handshake
+tweet index: 13912 	436 contained: high
+tweet: A drunk high five means more than a sober handshake
+tweet index: 13935 	437 contained: high
+tweet: me counting the high C in the mozart  concerto https://twitter.com/lilchasssss/status/1105915602345119746 …
+tweet index: 13962 	438 contained: high
+tweet: "in high school i was always super close with my upperclassmen friends, more than my own class and lowerclassmen.   IM MAKING THE SAME MISTAKE AGAIN AND I AM GETTING CLOSE TO UPPERCLASSMEN AND EVENTUALLY THEY ARE GOING LEAVE AND GO BE SUCCESSFUL AND GONNA MAKE ME MISS THEM"
+tweet index: 13997 	439 contained: CLUB
+tweet: crying in the CLUB https://twitter.com/AudreysMMB/status/1111058253914480642 …
+tweet index: 14103 	440 contained: high
+tweet: i was ugly in high school but all that rey matters is that i’m less ugly now :)
+tweet index: 14107 	441 contained: bar
+tweet: 50$ saying i only play two bars in the thompson today in WE ☠️ @DianaAOboe2
+tweet index: 14127 	442 contained: high
+tweet: what’s one thing about me that hasn’t changed since high school?  i am still the QUEEN OF PROcrastination
+tweet index: 14162 	443 contained: high
+tweet: i finally hit that women’s growth spurt so that 20 pounds went straight to my thighs ☠️
+tweet index: 14213 	444 contained: high
+tweet: Lmaoo . Why this my highschool ? 😂😂🤦🏾‍♂️ I was in the purple LSU shirt tryna help break it up https://twitter.com/schoolfightsss/status/1107379896026873856 …
+tweet index: 14295 	445 contained: drink
+tweet: "Count me in, I’ll bring drinks cuz ya girl isn’t artsy lol"
+tweet index: 14512 	446 contained: Bar
+tweet: an untouchable vine.💯 https://twitter.com/BarkyBoogz/status/1120408075167522819 …
+tweet index: 14559 	447 contained: drink
+tweet: Owe me a drink from sonic idc 🙄
+tweet index: 14646 	448 contained: beer
+tweet: It's bad luck if you don't take a sip before you salt your beer
+tweet index: 14648 	449 contained: high
+tweet: So proud of my old high school! First time in 26 years! https://twitter.com/Brandega/status/1107007684065165312 …
+tweet index: 14649 	450 contained: high
+tweet: ". @BearkatsBSB trails Incarnate Word 1-0 after two innings, highlights on KBTX Sports at 10 pic.twitter.com/jg9yWvJ6n8"
+tweet index: 14650 	451 contained: High
+tweet: Made it to Huntsville for the series opener for @BearkatsBSB vs UConn. Highlights on KBTX Sports at 10. pic.twitter.com/1yNwoWdbF9 – at Don Sanders Stadium
+tweet index: 14663 	452 contained: smoke
+tweet: "Amazing BBQ at benniejs.smokepit before my interview with skillset_ben and @skillsetmag today!  Sam Houston, the father of Texas, is buried just down the road... ...  Like and click the…  https://www.instagram.com/p/Bu7fXQ7Hxfk/?utm_source=ig_twitter_share&igshid=k58hp60c2ho2 …"
+tweet index: 14665 	453 contained: HIGH
+tweet: The Betrayal is at a ALL-TIME HIGH tonight😭
+tweet index: 14681 	454 contained: Bar
+tweet: ayyye that’s me https://twitter.com/BarefootHunt/status/1105151931004211205 …
+tweet index: 14803 	455 contained: party
+tweet: """Aye you that nigga that was lit than a bitch at the last party""😭😭😭💀"
+tweet index: 14813 	456 contained: high
+tweet: I just woke up and I highkey wanna go out tonight now
+tweet index: 14815 	457 contained: Weed
+tweet: Weed is better
+tweet index: 14875 	458 contained: smoke
+tweet: To study for this acc. test or smoke sesh? 🤪🤪
+tweet index: 14910 	459 contained: high
+tweet: So your high then lmao
+tweet index: 14911 	460 contained: weed
+tweet: Nigga I thought u was smoking dick not weedd
+tweet index: 14976 	461 contained: smoke
+tweet: I wanna smoke
+tweet index: 15031 	462 contained: high
+tweet: there’s people that rate their NBA MVP pick off of highlights than numbers smh
+tweet index: 15175 	463 contained: bar
+tweet: My stomach just growled so mf loud in class I’m embarrassed 🤦🏻‍♀️
+tweet index: 15212 	464 contained: weed
+tweet: if a leaf fall put some weed in that bitch
+tweet index: 15275 	465 contained: drunk
+tweet: let’s get drunk after i get off then 😝
+tweet index: 15278 	466 contained: drunk
+tweet: so ready to get drunk 💆🏾‍♀️
+tweet index: 15291 	467 contained: drink
+tweet: This is why we don’t drink like we used to. 😂💀😭
+tweet index: 15292 	468 contained: Beer
+tweet: Crawfish & Beer! 🤤
+tweet index: 15314 	469 contained: Club
+tweet: SHSU PGA PGM Alumni tourney! #mrandmrsheyallwright #shsualumni @ Raven Nest Golf Club  https://www.instagram.com/p/BvFASayHbrf/?utm_source=ig_twitter_share&igshid=8xw4lfokn0b4 …
+tweet index: 15315 	470 contained: Club
+tweet: Shenanigans! @ Shenanigans and Confetti's Beach Club  https://www.instagram.com/p/BvGBajEHf-o/?utm_source=ig_twitter_share&igshid=1whhheryhna5g …
+tweet index: 15348 	471 contained: high
+tweet: hey highschool class of ‘17 y’all should be graduating/transferring from your 2 year institution in May 😄 #excited
+tweet index: 15415 	472 contained: party
+tweet: you said you were going to the house warming partyso now I guess you’re uninvited and now i’m inviting taylar and not u 🤷🏽‍♀️😞
+tweet index: 15449 	473 contained: beer
+tweet: "Unfiltered beer is beautiful. #realbeer #unfiltered #haze #tangerineexpress @StoneBrewingCo @ Huntsville, Texas  https://www.instagram.com/p/BuxZtkBlec-/?utm_source=ig_twitter_share&igshid=1etb4nor1d2c4 …"
+tweet index: 15486 	474 contained: drink
+tweet: My diet says I have to drink at least a gallon of water a day.... it ain’t even 10AM and I just finished my whole gallon 😐
+tweet index: 15518 	475 contained: drink
+tweet: "Panda is expensive asf on campus. I got a medium side, a order of rangoons, and a small drink and it was $14.63"
+tweet index: 15521 	476 contained: High
+tweet: Highly upset that I missed free cone day at DQ. 🤬
+tweet index: 15524 	477 contained: party
+tweet: My party look and campus look are completely different. Sorry in advance if you see me today.
+tweet index: 15527 	478 contained: Bar
+tweet: Barely finished my first year of college but I did it.🎊
+tweet index: 15541 	479 contained: drink
+tweet: Maybe it was back when I said only girls who drank strawberry milk growing up got the best pussy and she was mad cause she didn’t drink strawberry milk
+tweet index: 15546 	480 contained: bar
+tweet: "This fake ass bitch AKA @bassbarbie26 told me she was going to bed 30 mins ago and got off the phone with me, yet she’s still tweeting pic.twitter.com/48HGFscwm4"
+tweet index: 15547 	481 contained: bar
+tweet: I’m injecting you with a flu shot while you’re asleep https://twitter.com/bassbarbie26/status/1112593038885433344 …
+tweet index: 15578 	482 contained: drunk
+tweet: "I got wine drunk and passed out at like 10, and now I’m wide awake"
+tweet index: 15596 	483 contained: drink
+tweet: This is why I don’t drink bang
+tweet index: 15598 	484 contained: drink
+tweet: Never drinking bang again
+tweet index: 15603 	485 contained: bar
+tweet: Only if it’s because we’re eloping https://twitter.com/bassbarbie26/status/1114963615944019968 …
+tweet index: 15610 	486 contained: weed
+tweet: "I remember when I thought smoking weed literally made you a crackhead, and now I don’t even blink an eye when my friends boof shit.   Ah innocence"
+tweet index: 15625 	487 contained: bar
+tweet: Realizing that I get to see slander with @bassbarbie26 and sing superhuman with her. Brb crying
+tweet index: 15636 	488 contained: drunk
+tweet: I forgot I’m being forced to go out tonight 🙂 might as well get drunk
+tweet index: 15650 	489 contained: drunk
+tweet: I’m wine drunk so here’s a booty video pic.twitter.com/SEZd3WiJJQ
+tweet index: 15664 	490 contained: drink
+tweet: I’m drinking coffee while listening to a podcast pic.twitter.com/jjixDwhPs3
+tweet index: 15670 	491 contained: high
+tweet: *eats edible*   Me: “oh this is lovely! Just a nice relaxing high”  Edible: https://twitter.com/RaveWiz/status/1115876777715478528 …
+tweet index: 15676 	492 contained: Bar
+tweet: Bar parking lot confessions pic.twitter.com/HK0OukrnvO
+tweet index: 15680 	493 contained: drunk
+tweet: Bout to get even more drunk at home   ᶠᵘᶜᵏ ʷᶦᵗʰ ᵐᵉ
+tweet index: 15695 	494 contained: drunk
+tweet: I drunk tweeted enough last night to last me like a week
+tweet index: 15739 	495 contained: stoned
+tweet: When I say I am SCREAMING https://twitter.com/stoned2thabones/status/1117678517125300225 …
+tweet index: 15753 	496 contained: bar
+tweet: Oof trying living on different sides of the country @bassbarbie26 https://twitter.com/bassdaddyethan/status/1118198248349605889 …
+tweet index: 15764 	497 contained: PARTY
+tweet: LOOOL UBBI AFTER PARTY TICKETS GO ON SALE TOMORROW AND I HAVE $3 IN MY BANK ACCOUNT pic.twitter.com/sOgjVrAr9J
+tweet index: 15765 	498 contained: drink
+tweet: Am I really about to drink coffee and finish birth charts from last night?  Yup
+tweet index: 15773 	499 contained: bar
+tweet: @bassbarbie26
+tweet index: 15781 	500 contained: high
+tweet: Putting mascara on while high should be an Olympic sport
+tweet index: 15797 	501 contained: high
+tweet: "It might just be because I’m high, but I just tried gloving and I was honestly really here for it"
+tweet index: 15812 	502 contained: party
+tweet: Praying i have enough monies for GWN after party ticket 😅
+tweet index: 15814 	503 contained: high
+tweet: Name that movie ft. my high ass pic.twitter.com/riGWuEkbBs
+tweet index: 15844 	504 contained: bar
+tweet: "Every time one of my headass tweets blows up, yet I barely get any likes on pics of me that I post, y’all further reinforce the fact that I’m more funny than I am pretty."
+tweet index: 15851 	505 contained: high
+tweet: "V sad I didn’t get a single video of @peekaboobeats this weekend, because I was too violently high"
+tweet index: 15885 	506 contained: drink
+tweet: "*drinks one bottle of kombucha*  “Damn, I’m a healthy fucking bitch”"
+tweet index: 15886 	507 contained: high
+tweet: You ever drool while you eat while you’re high
+tweet index: 15900 	508 contained: high
+tweet: "11. After high school, 1"
+tweet index: 15901 	509 contained: party
+tweet: 12. I was at a birthday party when I was 12 and we were playing spin the bottle 🍾
+tweet index: 15950 	510 contained: beer
+tweet: Mattress Mac just bought me a Shiner beer. How #Texas was your day? jimmcingvale @ Sam Houston State University  https://www.instagram.com/p/BuKtqy7hpyu/?utm_source=ig_twitter_share&igshid=1ws24z93eid5g …
+tweet index: 15982 	511 contained: drunk
+tweet: @lkgs_ r u 24??? Hunter said u were and I’m drunk sorry
+tweet index: 15984 	512 contained: high
+tweet: I don’t miss high school but I def miss the teachers :(((
+tweet index: 16116 	513 contained: club
+tweet: "Suge isn’t even close to his best song, it his club bopper that helped him blow up, everybody has a song like that"
+tweet index: 16126 	514 contained: drink
+tweet: Happy #GoT day! 🏰⚔️🛡🐉#ForTheThrone #GameofThronesSeason8 #drinkinggame pic.twitter.com/LkYpxul7Wn
+tweet index: 16150 	515 contained: drunk
+tweet: I’m sorry I bumped  into u while I was jumping around drunk asf being lit at the Gunna concert. Maybe don’t be in the front next time if you can’t handle it. Oh and btw I got into Parsons (basically an Ivy League) so if I did drop from Sam I’m sure I’d be fine. https://twitter.com/cocoa_bunni_/status/1111114556682784769 …
+tweet index: 16157 	516 contained: club
+tweet: Aye suh I’m at the club Rn at u kinda killing my vibe so why don’t U jus go@back to being anti social and the other guy you twitter fingers are starting to annoy me
+tweet index: 16245 	517 contained: party
+tweet: If anybody wants tickets to the 90s party dm me #TheClassicVollumell
+tweet index: 16345 	518 contained: high
+tweet: "This yt boy asked me how do i sit through this night class & do my work, i be high af in here that’s how 😂😂"
+tweet index: 16359 	519 contained: bar
+tweet: sorry to barge in 😂 is season 2 on Netflix yet 👀 i watched the first one & i loved ot
+tweet index: 16512 	520 contained: stoned
+tweet: 😂😂😂😂 https://twitter.com/stoned2thabones/status/1126572483317047296 …
+tweet index: 16527 	521 contained: Club
+tweet: The weather finally broke!  Had a great flight this morning with the Drone... We will see what kind of pictures I got of Club lake later today.  Clear skies probably means more driving…  https://www.instagram.com/p/BwcUuXPn_DN/?utm_source=ig_twitter_share&igshid=1pxzddrwesfzh …
+tweet index: 16528 	522 contained: Club
+tweet: "A beautiful morning out at Club Lake in Huntsville, TX.  Always enjoy getting the drone out when the weather is nice. @ Huntsville, Texas  https://www.instagram.com/p/BwdBAq7ncOF/?utm_source=ig_twitter_share&igshid=2rb2tlmbiwvb …"
+tweet index: 16565 	523 contained: drink
+tweet: "Save water, drink beer! 😈🍻 @MillerLite @BrandiiCruz pic.twitter.com/ACEo5rmzNH"
+tweet index: 16565 	524 contained: beer
+tweet: "Save water, drink beer! 😈🍻 @MillerLite @BrandiiCruz pic.twitter.com/ACEo5rmzNH"
+tweet index: 16571 	525 contained: Bar
+tweet: Come grab a latte and stay for a while! We’re here until 1 and then we’ll reopen at 5:30 for LIVE MUSIC at arnaudscajun 🙌☕️ @ HCB - Honey’s Coffee Bar  https://www.instagram.com/p/Bt8jEi2BgIL/?utm_source=ig_twitter_share&igshid=1srdg1g9p2xkx …
+tweet index: 16572 	526 contained: Bar
+tweet: Ugly trailer tires? Trash! We don’t know her! CC will continue her facelifts until she is content😂 @ HCB - Honey’s Coffee Bar  https://www.instagram.com/p/Bt87tBnBMOO/?utm_source=ig_twitter_share&igshid=geldnyd9eku9 …
+tweet index: 16612 	527 contained: high
+tweet: "Don’t ever climb so high in your career that you forget to care about the well-being of others, especially those closest to you.  For your continued success, & that of your org, people like to think you care, & that you’re a decent person."
+tweet index: 16616 	528 contained: smoke
+tweet: No medical facility should smell like smoke.
+tweet index: 16642 	529 contained: adderall
+tweet: cigarettes and adderall been keepin’ me alive...
+tweet index: 16657 	530 contained: bar
+tweet: "#yourfavoritebandboys live in Huntsville, TX this Saturday! .  #HoldOnHollywood w/ special guests @theweedsmusic at 12thstreetbar Jan 26th. This is a #FreeShow for 21+ . 📷 by viatoremhs @…  https://www.instagram.com/p/BtAA7hgnPBu/?utm_source=ig_twitter_share&igshid=loifd4jgk290 …"
+tweet index: 16657 	531 contained: weed
+tweet: "#yourfavoritebandboys live in Huntsville, TX this Saturday! .  #HoldOnHollywood w/ special guests @theweedsmusic at 12thstreetbar Jan 26th. This is a #FreeShow for 21+ . 📷 by viatoremhs @…  https://www.instagram.com/p/BtAA7hgnPBu/?utm_source=ig_twitter_share&igshid=loifd4jgk290 …"
+tweet index: 16658 	532 contained: Bar
+tweet: You know it’s gonna be a good day when you hear your own song on the radio while pulling out to head to your show. 🖤 See y’all at 12th Street Bar in Huntsville tonight! Not too far from…  https://www.instagram.com/p/BtHM6JUHx7U/?utm_source=ig_twitter_share&igshid=u2m8dyqgscl7 …
+tweet index: 16697 	533 contained: drink
+tweet: Sis almost lost her mind when she saw me eating goldfish in a baggie and drinking water omfg
+tweet index: 16715 	534 contained: weed
+tweet: @weedonelissa me
+tweet index: 16717 	535 contained: weed
+tweet: @weedonelissa
+tweet index: 16750 	536 contained: weed
+tweet: @weedonelissa
+tweet index: 16775 	537 contained: bar
+tweet: "Nothing is better than getting home from the bar, doing your skincare routine and getting into bed in fresh pajamas"
+tweet index: 16831 	538 contained: high
+tweet: sir the gas is high.
+tweet index: 16890 	539 contained: drunk
+tweet: you must’ve been drunk already when you tweeted this https://twitter.com/justdiamonddd/status/1108802820344635393 …
+tweet index: 16916 	540 contained: party
+tweet: im toe up. they expect me to make it to the afta party?
+tweet index: 16932 	541 contained: drink
+tweet: my meal for the day knowing that ima drinking for a party later that night😅 https://twitter.com/raveboba/status/1111152612508762112 …
+tweet index: 16932 	542 contained: party
+tweet: my meal for the day knowing that ima drinking for a party later that night😅 https://twitter.com/raveboba/status/1111152612508762112 …
+tweet index: 16942 	543 contained: drunk
+tweet: i think i got ptsd from drunk fest. that shit was a hot mess to me idc what nobody say bro
+tweet index: 17031 	544 contained: high
+tweet: "its about that time, i do my daily twerk practice/thigh and glute workout so i can FLEX on yall pic.twitter.com/kKRMJhKMtG"
+tweet index: 17106 	545 contained: stoned
+tweet: lmaoooo me https://twitter.com/stoned2thabones/status/1119062165728702464 …
+tweet index: 17190 	546 contained: Drink
+tweet: dawg i would have bust my skull clean https://twitter.com/Mr_DrinksOnMe/status/1122391835966693376 …
+tweet index: 17261 	547 contained: high
+tweet: how some of the fb players use to treat us trainers in highschool🤧🤧 https://twitter.com/CurryDagger/status/1125586385837096961 …
+tweet index: 17292 	548 contained: Club
+tweet: Should i go cop these Bred 4s or wait to cop something else at Flight Club? 🤔
+tweet index: 17392 	549 contained: high
+tweet: Dang I wish I would’ve done a pose like this in high school 😂 https://twitter.com/FloTrack/status/1112085347951955968 …
+tweet index: 17465 	550 contained: bar
+tweet: You barely what? pic.twitter.com/0tyKQfdWke
+tweet index: 17533 	551 contained: drunk
+tweet: Mann who tryna get drunk 🥴 😵⁉️
+tweet index: 17738 	552 contained: High
+tweet: Merrywood Private School  Mary Lillard Intermediate School  Danny Jones Middle School  Lake Ridge High School  Sam Houston State University 🧡💙 https://twitter.com/jewellthejewel/status/1124515763166035970 …
+tweet index: 17791 	553 contained: high
+tweet: this how officers be walking into high school basketball games pic.twitter.com/f4AX3zpwNI
+tweet index: 17815 	554 contained: bar
+tweet: "college isn't even hard, its jus the fact that i can no longer do the bare minimum and pass like i did in hs"
+tweet index: 17835 	555 contained: party
+tweet: loll yall thought i was playin when i said i wasnt gonna pay 10 dollars to go to this party 💀💀.
+tweet index: 17952 	556 contained: high
+tweet: after high school life hit me like a truck man 🤦🏾‍♂️
+tweet index: 18008 	557 contained: bar
+tweet: this how it feel walking out the barber shop after you just got a fresh cut https://twitter.com/babybear___/status/1119866589392900096 …
+tweet index: 18089 	558 contained: club
+tweet: LOL join the club
+tweet index: 18151 	559 contained: bar
+tweet: "😭... if you know , you know  @bobbiebarnes04 @lovekrys__ https://twitter.com/jantrell_/status/1043358637379530752 …"
+tweet index: 18182 	560 contained: bar
+tweet: I’m gone tear SHSU down! https://twitter.com/bobbiebarnes04/status/1125822865490812928 …
+tweet index: 18255 	561 contained: Bar
+tweet: I have. It’s really good. My go-to though is the Barnyard. It’s my own creation that’s not on the menu.
+tweet index: 18276 	562 contained: bar
+tweet: Well that was embarrassing…
+tweet index: 18304 	563 contained: Smoke
+tweet: Bad! 😂 https://twitter.com/SmokeeRobinson4/status/1111114687884726272 …
+tweet index: 18325 	564 contained: party
+tweet: Y’all don’t understand how live this party about to be https://twitter.com/ThetaMuAlphas/status/1113472691342839809 …
+tweet index: 18364 	565 contained: Club
+tweet: Pregame @ Republic Clubhouse @ 9 PM
+tweet index: 18409 	566 contained: club
+tweet: @_demixgod ayeeee congrats club !!!! 🍾🍾
+tweet index: 18483 	567 contained: Smoke
+tweet: Yuhhhh Nelson! 🍾 https://twitter.com/SmokeeRobinson4/status/1124355351522967553 …
+tweet index: 18506 	568 contained: Club
+tweet: Republic Clubhouse @ 10 is the move 🍾‼️
+tweet index: 18569 	569 contained: bar
+tweet: I’d bar hop with @Thebethbryant https://twitter.com/lexi_neel20/status/1113879532266774535 …
+tweet index: 18578 	570 contained: drink
+tweet: Who let me chug my drinks last night  instead of drink them like a regular person
+tweet index: 18596 	571 contained: bar
+tweet: draft bar we miss you.
+tweet index: 18599 	572 contained: drink
+tweet: Am I really drinking at least once iced coffee a day? Hell yeah. Should I be worried about restarting my addiction to coffee? Hell yeah. Will if I something about it? Tune in next week to find out... how much money I have left after buying a week worth of ice coffee🤷🏽‍♂️
+tweet index: 18620 	573 contained: high
+tweet: "Today, Alyssa, Andylyn and I took freshman pictures at the duck pond to make fun of the high school seniors doing Senior Pictures, and it was actually a lot of fun. pic.twitter.com/sfEKTlalrW – at Sam Houston Home (Duck Pond Park)"
+tweet index: 18624 	574 contained: high
+tweet: Favorite part of orchestra? @quincychatman being attacked as if he was a high school freshman violin player
+tweet index: 18742 	575 contained: party
+tweet: "Amendment XIII  Section 1.  Neither slavery nor involuntary servitude, except as a punishment for crime whereof the party shall have been duly convicted, shall…  https://www.instagram.com/p/BtYtwoYFvNmmlEjtmDv8R-hN8eJ5InL5VfRyQg0/?utm_source=ig_twitter_share&igshid=l1dg46yva43w …"
+tweet index: 18755 	576 contained: party
+tweet: Travis porter really gave us an era of endless party bangers and dipped lmfaoooo
+tweet index: 18765 	577 contained: bar
+tweet: "Do majority of african americans specifically know who the calabar tribe is?? No. Your defending ignorance with a fact that has nothing to do with the stereotype against us, but to each its own."
+tweet index: 18787 	578 contained: Party
+tweet: Partynextdoor owes us like 2 albums up to this point.
+tweet index: 18796 	579 contained: party
+tweet: Shsu GOT watch party tonight?👀
+tweet index: 18803 	580 contained: high
+tweet: imagine sitting down and actually taking the time to search “Patrick Beverly highlights” on youtube🤣
+tweet index: 18806 	581 contained: bar
+tweet: Pharrel hiding from the camera like an embarrassed side nigga🤣 https://twitter.com/Wale/status/1118253844037652480 …
+tweet index: 18878 	582 contained: BEER
+tweet: A SIX PACK OF BEER ?!?
+tweet index: 18889 	583 contained: drink
+tweet: My 21st is tomorrow soooo if anyone wants to send me some money for some drinks...... My Venmo is  @Karla-Carranza-3   and my cashapp is $KarlaBCarranza   😛😛😛😛
+tweet index: 18893 	584 contained: bar
+tweet: I just finessed us shots at the bar 😛
+tweet index: 18902 	585 contained: drink
+tweet: Im just trynna drink but all my sisters are busy or back home ☹️
+tweet index: 18905 	586 contained: drink
+tweet: Im bood up but still trynna drink and go out :(
+tweet index: 18906 	587 contained: drink
+tweet: Im just trynna drink im hunts and no one is down
+tweet index: 18932 	588 contained: bar
+tweet: In an advanced CJ class that i assume is primarily upperclassmen... Y’all really don’t know what business casual attire is? Like can you google it ?  Bc I’m sure a dress that barely covers your ass and 6 inch opened toed heels ain’t it ma’am.
+tweet index: 18938 	589 contained: drink
+tweet: After today ima need a couple drinks and some kisses from my man
+tweet index: 19055 	590 contained: high
+tweet: "Going from high school to college is fr like when momma birds push their babies out the nest, like you either fly or die there’s no in between!!"
+tweet index: 19100 	591 contained: high
+tweet: Why do people think it’s “cool” to video themselves shooting the ground with a gun? And what’s worse.. they’re high school students.
+tweet index: 19108 	592 contained: Bar
+tweet: Ok but sometimes I just think about @Mack_Barger and laugh because she’s literally the funniest person I know
+tweet index: 19167 	593 contained: weed
+tweet: weed https://twitter.com/LilNasX/status/1110430104763748352 …
+tweet index: 19220 	594 contained: high
+tweet: this just might be my first time listening to Too Deep high 🥴
+tweet index: 19249 	595 contained: high
+tweet: my high ass ordered the wrong pancakes at ihop 🤦🏾‍♀️🤣💀
+tweet index: 19358 	596 contained: party
+tweet: a party playing work by pnd >> too bad it won’t happen in the ville
+tweet index: 19459 	597 contained: BAR
+tweet: i’ve never been the one to speak in front of the class anD TODAY REALLY PROVED THAT LMAO IM SO EMBARRASSED
+tweet index: 19487 	598 contained: Club
+tweet: the fact that @AeriellW21 knows one of my favorite movies is the Playas Club💀 >>>>
+tweet index: 19516 	599 contained: drink
+tweet: I need to be in Cancun rn drinking hard liquor.
+tweet index: 19571 	600 contained: Bar
+tweet: That picture hit just right when you really feeling yourself!!!!!!!! pic.twitter.com/FdkcF8Vnj8 – at Chili's Grill & Bar
+tweet index: 19586 	601 contained: Club
+tweet: Just posted a video @ Iron Works Health Club  https://www.instagram.com/p/Bt83ghwD1oZ/?utm_source=ig_twitter_share&igshid=1oemvhhgbaevt …
+tweet index: 19587 	602 contained: Club
+tweet: 550 am!!  . . . . . #getswole #getswoleisthegoal #grind #focus #kmooremusic @ Iron Works Health Club  https://www.instagram.com/p/BuBalBCDrjT/?utm_source=ig_twitter_share&igshid=pc2balwxrff5 …
+tweet index: 19588 	603 contained: Club
+tweet: The #getswole saga continues! . . . . . . #getswoleisthegoal #focus #grind #work #kmooremusic #maketrombonehardtoplaywithbigmuscles @ Iron Works Health Club  https://www.instagram.com/p/BuEAmsxDbRI/?utm_source=ig_twitter_share&igshid=1hla82wokc7ix …
+tweet index: 19589 	604 contained: Club
+tweet: 6:05 am!!! In before the sun. . . . . . #getswoleisthegoal #getswole #grind #focus #kmooremusic #notusingsocialmediacorrectly @ Iron Works Health Club  https://www.instagram.com/p/BuJKooIDw6I/?utm_source=ig_twitter_share&igshid=ti3k50qqtj1z …
+tweet index: 19591 	605 contained: Club
+tweet: Monday! . . . . . . #riseandgrind #getswole #getswoleisthegoal #focus #kmooremusic #2weekstillspringbreak @ Iron Works Health Club  https://www.instagram.com/p/BuTbyZaDW9a/?utm_source=ig_twitter_share&igshid=1i4wqqiur1gkz …
+tweet index: 19592 	606 contained: Club
+tweet: 545 am! We continue.... #getswoleisthegoal #getswole #grind #focus #kmooremusic #kegtosixpack @ Iron Works Health Club  https://www.instagram.com/p/BuWAUl3jELo/?utm_source=ig_twitter_share&igshid=1v184jq5ntwen …
+tweet index: 19593 	607 contained: Club
+tweet: 5:40am- lets go!! . . . . . . #getswole #getswoleisthegoal #grind #focus #kmooremusic #embraceyourprocess #aworkoutadaykeepsthedoctoratbay #imprettyclever @ Iron Works Health Club  https://www.instagram.com/p/BubJds-jAuV/?utm_source=ig_twitter_share&igshid=g4inpsj623tk …
+tweet index: 19595 	608 contained: Club
+tweet: Good morning!  . . . . . #getswole #getswoleisthegoal #grind #focus #kmooremusic #maketrombonehardtoplaywithbigmuscles #monday @ Iron Works Health Club  https://www.instagram.com/p/BulekgxDq0d/?utm_source=ig_twitter_share&igshid=1ipii1gmya635 …
+tweet index: 19596 	609 contained: Club
+tweet: TUESDAY WORKOUT!!!  . . . . . . #riseandgrind #getswoleisthegoal #getswole #imtired #focus #kmooremusic #itsextracoldoutside @ Iron Works Health Club  https://www.instagram.com/p/BuoE0D5jgTC/?utm_source=ig_twitter_share&igshid=gjqgngqxd5ai …
+tweet index: 19597 	610 contained: Club
+tweet: Friday workout- time to #getswole Thanks for the inspiration befit4music And @MLCULTD #getswoleisthegoal #getswolecrew #kmooremusic #focus @ Iron Works Health Club  https://www.instagram.com/p/BuvxAAMD_kz/?utm_source=ig_twitter_share&igshid=1cgfwiu6bpcee …
+tweet index: 19598 	611 contained: Club
+tweet: "Spring break late start, but still #onthatgrind !!! #focus #mondaymotivation #getswole #getswoleisthegoal #tightshirtsonpurpose #kmooremusic @ Iron Works Health Club  https://www.instagram.com/p/Bu3xmCxDNhU/?utm_source=ig_twitter_share&igshid=pkn9qz46exkv …"
+tweet index: 19605 	612 contained: Club
+tweet: "642pm! Almist didnt work out today, but my wife got me to go! @ Iron Works Health Club  https://www.instagram.com/p/BvfYgZgjiSU/?utm_source=ig_twitter_share&igshid=mi6m1w5d8q7s …"
+tweet index: 19608 	613 contained: Club
+tweet: Post workout recap! #getswole @ Iron Works Health Club  https://www.instagram.com/p/BvtobHIDTDX/?utm_source=ig_twitter_share&igshid=nogy0m1jd7n3 …
+tweet index: 19610 	614 contained: Club
+tweet: 537 am... before the sun! . . . . #getswole #getswoleisthegoal #focus #kmooremusic #tightshirtsonpurpose #maketrombonehardertoplaywithbigmuscles @ Iron Works Health Club  https://www.instagram.com/p/Bv1J1g0jopb/?utm_source=ig_twitter_share&igshid=fbdt6cgq8mkj …
+tweet index: 19615 	615 contained: Club
+tweet: "5:35am. More IG videos/twitter, and less FB posts are in order... #getswole #getswoleisthegoal #kmooremusic #tightshirtsonpurpose #focus @ Iron Works Health Club  https://www.instagram.com/p/BwUDIU3Dtf8/?utm_source=ig_twitter_share&igshid=dbd7tkvyy2hr …"
+tweet index: 19616 	616 contained: Club
+tweet: Thursday Workout!! . . . . . #getswole #getswoleisthegoal #grind #focus #kmooremusic #tightshirtsonpurpose #thursday @ Iron Works Health Club  https://www.instagram.com/p/BwZOeUDDgdW/?utm_source=ig_twitter_share&igshid=3x3jf3oydt0v …
+tweet index: 19618 	617 contained: Club
+tweet: 520 am ! Let's goooooooo @ Iron Works Health Club  https://www.instagram.com/p/BwrM2w5jwwB/?utm_source=ig_twitter_share&igshid=1vr5a3g34gb0p …
+tweet index: 19620 	618 contained: Club
+tweet: "527am, last week of classes, let's get it! . . . . #mondaymotivation #getswole #getswoleisthegoal #kmooremusic #focus #grind #tightshirtsonpurpose @ Iron Works Health Club  https://www.instagram.com/p/Bw1gxhUjV3f/?utm_source=ig_twitter_share&igshid=7az87j34sdb3 …"
+tweet index: 19621 	619 contained: Club
+tweet: 511 am- push muscles! #getswole #getswoleisthegoal #kmooremusic #focus #grind #tightshirtsonpurpose #swoleday #tuesday @ Iron Works Health Club  https://www.instagram.com/p/Bw4DthXDOpl/?utm_source=ig_twitter_share&igshid=1f2719z0f5uiq …
+tweet index: 19623 	620 contained: Club
+tweet: Just posted a video @ Iron Works Health Club  https://www.instagram.com/p/BxAVWGEjJqf/?utm_source=ig_twitter_share&igshid=19jkit9dpiefy …
+tweet index: 19626 	621 contained: Club
+tweet: Slept in a bit... but still getting that workout in! . . . . #getswole #getswoleisthegoal #kmooremusic #focus #grind #tightshirtsonpurpose #music #thursday @ Iron Works Health Club  https://www.instagram.com/p/BxPkMvLln3f/?utm_source=ig_twitter_share&igshid=ks7a1934ae2c …
+tweet index: 19687 	622 contained: high
+tweet: I see Jenks as you location now. You teach there! My friend is a librarian there at a junior high.
+tweet index: 19706 	623 contained: party
+tweet: My Boy  @_blakerachal_ finna Dj A after party at Sam Houston..... tell me God aint working 🙌🏾
+tweet index: 19763 	624 contained: Bar
+tweet: Tomorrow Big E-Z! ALL YOU CAN EAT CRAWFISH FOR $39.99!! Happy Hour from 11-6! Y’all come out for all you can eat! No limits!! 🦞🦞🦞 – at The Big E-Z Crawfish & Oyster Bar
+tweet index: 19771 	625 contained: bar
+tweet: I’d bar hop with @realDonaldTrump https://twitter.com/PharaohSociety_/status/1111336438363246592 …
+tweet index: 19790 	626 contained: Club
+tweet: Location for Pajama Jam- The Republic Clubhouse ✨ https://twitter.com/lexyf_/status/1109133749973929984 …
+tweet index: 19809 	627 contained: Drink
+tweet: "Aye man, say man y’all come thru! Drinks on us 🎉🤩🥰 pic.twitter.com/RG2odxRwYQ"
+tweet index: 19825 	628 contained: high
+tweet: hold me to high
+tweet index: 19850 	629 contained: high
+tweet: The first day of my senior year of high school I sharted while wearing light wash blue jeans
+tweet index: 19866 	630 contained: bar
+tweet: I’ve had fever all night so I barely got any sleep rip me
+tweet index: 19884 	631 contained: high
+tweet: Knee high socks brings out my inner Ariana grande lmao 😂
+tweet index: 19949 	632 contained: drink
+tweet: "Ok normally I don’t care about targeted ads, but when I’ve had dos Dos Equis, Quatro Equis if you will, it gets to me when I then see an ad for Dos Equis after texting my friend about me drinking Dos Equis because now I want more Dos Equis"
+tweet index: 19983 	633 contained: bar
+tweet: Any barbers on campus? #shsu
+tweet index: 19989 	634 contained: high
+tweet: When Nav said “don’t even wanna fuck just rub my head till i fall asleep”  highkey felt that
+tweet index: 19991 	635 contained: party
+tweet: I be wanting to party but if i have to study then i have to study. It sucks but I’ll have time to party when i have achieved my goals
+tweet index: 19997 	636 contained: high
+tweet: some y’all really still act like this high school
+tweet index: 20215 	637 contained: drink
+tweet: y’all can invite me out for drinks now😂
+tweet index: 20266 	638 contained: drink
+tweet: lmaooooo I just went to get me a drink😂
+tweet index: 20323 	639 contained: drunk
+tweet: the drunk I had> im ready to go to bed now
+tweet index: 20324 	640 contained: drink
+tweet: drink* lmao
+tweet index: 20441 	641 contained: drunk
+tweet: really I just wanna be drunk rn
+tweet index: 20489 	642 contained: drunk
+tweet: my professor just told our class to get drunk and jump into a frozen lake.  bro relax
+tweet index: 20551 	643 contained: club
+tweet: Currently crying in the club 😭😍
+tweet index: 20580 	644 contained: party
+tweet: if you gone stand around at a party stay home.
+tweet index: 20656 	645 contained: bar
+tweet: y’all pray for my roommate. ain’t nun wrong w her she’s just very embarrassing
+tweet index: 20663 	646 contained: weed
+tweet: came to college and saw people I knew change over weed & alcohol. sad
+tweet index: 20687 	647 contained: drunk
+tweet: being drunk af wit ya boo looks fun 😂😂 https://twitter.com/anissaxo__/status/1114966680051048450 …
+tweet index: 20771 	648 contained: PARTY
+tweet: i’d die for summer vibes like this. https://twitter.com/PARTYOVOMO/status/1122187990191624192 …
+tweet index: 20804 	649 contained: drunk
+tweet: drunk me is so insensitive :(
+tweet index: 20917 	650 contained: High
+tweet: Highway 30 Rivalry tonight as @BearkatsBSB hosts @AggieBaseball in midweek matchup. Join @MCTrent23 and me at 6:30 pm on ESPN+! pic.twitter.com/3ylRyUUbwP – at Don Sanders Stadium
+tweet index: 20997 	651 contained: drink
+tweet: Olive Garden is really doing something with these little drinks !👏🏽
+tweet index: 21135 	652 contained: drunk
+tweet: you’re so drunk lol
+tweet index: 21204 	653 contained: drink
+tweet: free lashes and drinks for lifeeeeee https://twitter.com/Streetsyb/status/1118552198403719169 …
+tweet index: 21211 	654 contained: bar
+tweet: like this tweet if you think @MarciGrubaugh should spontaneously drive to huntsville and go to the bar tonight
+tweet index: 21245 	655 contained: bar
+tweet: dating a girl has me rejectin guys at the bar so much more aggressively than ever before 😩 please just leave me alone. me and my girl are crazy my dude.
+tweet index: 21292 	656 contained: club
+tweet: Now that I think about it I’m really mad i didn’t get the security guards number from the club on Saturday 😂
+tweet index: 21346 	657 contained: bar
+tweet: "Ngl didn't expect this year to go how it is, and it's barely the 3rd month😂😭🤦🏾‍♂️, we shall see what is in store for me the rest of the 9 months left."
+tweet index: 21389 	658 contained: high
+tweet: "Bitch I dont buy make nor do I really wear it but @JeffreeStar Hypothermia supreme frost highlighter has been calling out to me and I said ""treat yourself bitch."" Shout out to Jeffee for being my first non drugstore purchase of highlighter 💙 pic.twitter.com/Rzbyg7aIvO"
+tweet index: 21452 	659 contained: drunk
+tweet: So me and a friend hung out yesterday and got drunk because I was going home this weekend. But now all of a sudden my office wants to have a training so im not going home.
+tweet index: 21580 	660 contained: drink
+tweet: I could drink soy sauce by the gallon
+tweet index: 21637 	661 contained: drink
+tweet: People that bring their drinks in the restroom and drink it there is just gross 🤢🤢
+tweet index: 21653 	662 contained: Club
+tweet: Ole boy is about to be twitter famous! @ClubShenanigan https://twitter.com/OldRowOfficial/status/1113287679721070597 …
+tweet index: 21662 	663 contained: high
+tweet: Am I too pale for platinum highlights?
+tweet index: 21664 	664 contained: Bar
+tweet: Bars is probably one of the dumbest things you could do in my opinion https://twitter.com/Clenna_Liv/status/1113952988622671873 …
+tweet index: 21665 	665 contained: bar
+tweet: I wanna know why this bitch was in a bar if she wasn’t of age? It’s like Akon all over agin https://twitter.com/LJWorld/status/1113561496263561216 …
+tweet index: 21688 	666 contained: high
+tweet: We dance to can I have this dance from high school musical at my wedding or NOTHING AT ALL
+tweet index: 21730 	667 contained: drunk
+tweet: bet🤣 KTSE I gotchu fasho drunk ass https://twitter.com/geebaaby_/status/1112407486592675840 …
+tweet index: 21880 	668 contained: bar
+tweet: "If I owe u bare wit me , I always keep my word 🤞🏽"
+tweet index: 22043 	669 contained: party
+tweet: I state that specifically because the next best character inclusion was Cloud in Smash 4. But it was kinda sketchy. Square Enix only gave us two songs for the entire FF franchise... It's great to see Atlus giving love to Smash as a third party.
+tweet index: 22056 	670 contained: bar
+tweet: everytime i play gta i just be driving around. and i can barely do that
+tweet index: 22071 	671 contained: drink
+tweet: I deadass can’t drink like wowwww
+tweet index: 22081 	672 contained: Bar
+tweet: Str8 Bars x Kodak
+tweet index: 22153 	673 contained: party
+tweet: It’s a beautiful day for a pool party guys. So come on out to #HeatCheck 🌴🔥  Brought to you by two of your favs  @BPG_Prodigies & @NightOfVsions pic.twitter.com/pMpnjjRUn2
+tweet index: 22283 	674 contained: drunk
+tweet: I don’t know what this back pain is from but I’m about to get drunk and forget it
+tweet index: 22330 	675 contained: drink
+tweet: I need a drink.
+tweet index: 22350 	676 contained: high
+tweet: "Lol no, I might even add some highlights depends on how I’m feeling."
+tweet index: 22364 	677 contained: Club
+tweet: Ladies and gentlemen this is a great opportunity to give back to those who are in need. So DONATE DONATE DONATE ‼️‼️‼️ March 28 in the Kat Club. This list of items is highlighted in yellow. Thank you❤️ pic.twitter.com/HVbgLCjPpN
+tweet index: 22364 	678 contained: high
+tweet: Ladies and gentlemen this is a great opportunity to give back to those who are in need. So DONATE DONATE DONATE ‼️‼️‼️ March 28 in the Kat Club. This list of items is highlighted in yellow. Thank you❤️ pic.twitter.com/HVbgLCjPpN
+tweet index: 22462 	679 contained: drink
+tweet: Make sure y’all come out to our 4th annual day party💓💓 free drinks and a good time💓 pic.twitter.com/C4Eg9gNQlr
+tweet index: 22462 	680 contained: party
+tweet: Make sure y’all come out to our 4th annual day party💓💓 free drinks and a good time💓 pic.twitter.com/C4Eg9gNQlr
+tweet index: 22508 	681 contained: drink
+tweet: Bro I almost spit my drink out!!! You stupidddd!
+tweet index: 22526 	682 contained: party
+tweet: If you came to our day party and you’re missing keys we have them! https://twitter.com/WOWWomen_/status/1121579937150963712 …
+tweet index: 22553 	683 contained: high
+tweet: mile high is a banger 👀
+tweet index: 22736 	684 contained: drunk
+tweet: wow drunk me canNOT spell
+tweet index: 22813 	685 contained: beer
+tweet: i need a hug and a beer. in that order.
+tweet index: 22941 	686 contained: smoke
+tweet: holy smokes https://twitter.com/jd_montague/status/1121090315820126210 …
+tweet index: 23002 	687 contained: Club
+tweet: PSA https://twitter.com/ClubShenanigan/status/1115781323015299072 …
+tweet index: 23056 	688 contained: wasted
+tweet: "Unimportance of pushing oneself to excel within the education system. For those in the 10%, for what it’s worth, I’m proud of your hard work and willingness to do more than what was asked. Don’t let this make you feel that your efforts were wasted. Go off and do great things."
+tweet index: 23068 	689 contained: club
+tweet: MY GAL IS NINETEEN I LOVE YOU TRASHY TRIN!! Welcome to the #nasty19 club🤪 thanks for being my bff💓 pic.twitter.com/dMHbBkoox3
+tweet index: 23094 	690 contained: bar
+tweet: Russo bros: *have one itty bitty mention of a guy going on a date with another guy* wow 😌 such representation 🏳️‍🌈 we are breaking down barriers 👏👏👏
+tweet index: 23118 	691 contained: club
+tweet: is clubbing kinda lame? or is it just me🤔
+tweet index: 23136 	692 contained: High
+tweet: Day 3 of the 6th Grade Initiative campus visits. SHSU Higher Ed Leadership doc student Benjamin Cantu serving as emcee for the morning. Sammy the Bearkat breaking all the info down for…  https://www.instagram.com/p/BuJsJjwAmeQ/?utm_source=ig_twitter_share&igshid=1iz7euyslxh9v …
+tweet index: 23139 	693 contained: high
+tweet: "I find it interesting that one of the most impactful things faculty and higher education administrators can do to students is just asking, ""how are you?""  *Care* is a theme discussed by the student keynotes at #GSS2019 Care seems to be difficult for some of my colleagues. Why?"
+tweet index: 23141 	694 contained: bar
+tweet: "Fascinating session from our UH-Downtown colleagues on their community engagement with Houston's Near Northside barrios. Empowerment through oral histories, graffiti murals, and…  https://www.instagram.com/p/Bv1oaCWAgj8/?utm_source=ig_twitter_share&igshid=1kjgx33yic9d9 …"
+tweet index: 23144 	695 contained: high
+tweet: McNair Scholar Katrina Krause presenting her research proposal on high school extracurricular involvement effects. She did awesome in the Q&A portion!  #mcnairscholar #studentsuccess…  https://www.instagram.com/p/BwmtQoyH4F4/?utm_source=ig_twitter_share&igshid=ckfsg59auzpe …
+tweet index: 23147 	696 contained: High
+tweet: TACHistas in the Higher Education Administration master's program at SHSU Commencement #TACHEProud #SHSUCOE #SHSUHIED @ Sam Houston State University  https://www.instagram.com/p/BxSNXkYBQr-/?utm_source=ig_twitter_share&igshid=qnqopk694aca …
+tweet index: 23149 	697 contained: High
+tweet: "Oh, hello Dr. John Hayek! When your old Indiana University Higher Education doctoral classmate is up on the stage representing the Texas State University System. @ Sam Houston State…  https://www.instagram.com/p/BxSWvIWBEFC/?utm_source=ig_twitter_share&igshid=k7dump3a3v0t …"
+tweet index: 23152 	698 contained: High
+tweet: Congrats to one of my favorite Higher Education Administration master's student-scholar graduates Jane Vo! #SHSUHIED #SHSUCOE #SHSU @ Sam Houston State University  https://www.instagram.com/p/BxSigXJBbuh/?utm_source=ig_twitter_share&igshid=11q7cp6hxzpzf …
+tweet index: 23201 	699 contained: drunk
+tweet: I need a drunk
+tweet index: 23202 	700 contained: Drink
+tweet: Drink
+tweet index: 23416 	701 contained: weed
+tweet: weed ain’t bad for you but I’ve seen it negatively change people. https://twitter.com/elibrown25/status/1109101854045233152 …
+tweet index: 23418 	702 contained: high
+tweet: highly*
+tweet index: 23473 	703 contained: drunk
+tweet: The fact that I’m drunk and I don’t have my glasses really fucks with me
+tweet index: 23528 	704 contained: High
+tweet: (Some early elementary school in Aldine) Meyer Elementary School Bammel Middle School DeKaney High School Lone Star College- NH Sam Houston State University 🔷🔶 https://twitter.com/ssmaarie/status/1124722396194381824 …
+tweet index: 23531 	705 contained: high
+tweet: Them hoes hit differently when you high 😌🙌🏿 https://twitter.com/MissTylerr/status/1124738223916376064 …
+tweet index: 23574 	706 contained: Bar
+tweet: Just posted a photo @ City Hall Cafe & Pie Bar  https://www.instagram.com/scorpio479/p/Bwvfxm7Ay3PwznpDq0ijC5PHlhr__a7JFOzekU0/?igshid=1vgaj41px7uyf …
+tweet index: 23642 	707 contained: bar
+tweet: The most embarrassing thing happened to me today🙂
+tweet index: 23677 	708 contained: club
+tweet: Im dancing in my room to the music playing at the republic clubhouse😂
+tweet index: 23982 	709 contained: drink
+tweet: I need a drink
+tweet index: 23993 	710 contained: club
+tweet: See you soon ma’am! pic.twitter.com/clubM1NYrQ
+tweet index: 24017 	711 contained: Smoke
+tweet: Just like Smokey did when we was on line my dog was hungry lol
+tweet index: 24040 	712 contained: club
+tweet: Republic clubhouse 9pm for the pregame tn‼️
+tweet index: 24049 	713 contained: Club
+tweet: Rock Club‼️ https://twitter.com/TheChiddWay/status/1117146058101022723 …
+tweet index: 24100 	714 contained: club
+tweet: Let my club make it lol
+tweet index: 24103 	715 contained: Club
+tweet: 🗣Offset - Jewe7 Club 💎 - Fall 17 - Theta Mu (Sam Houston State) pic.twitter.com/zuBQSnCrzu
+tweet index: 24108 	716 contained: club
+tweet: He wasn’t talking about you club lol
+tweet index: 24111 	717 contained: club
+tweet: @ChiefBinedu happy bday club 🍾
+tweet index: 24307 	718 contained: bar
+tweet: "My barber, and my cuts are crisp."
+tweet index: 24364 	719 contained: Bar
+tweet: Hey @FCBarcelona_es muy preparados no estáis... que le ha pasado a la U? pic.twitter.com/XJBbQkuiiw
+tweet index: 24417 	720 contained: bar
+tweet: I’d bar hop with @MakaylaMills__   Any day of the week hahaha https://twitter.com/PharaohSociety_/status/1111336438363246592 …
+tweet index: 24439 	721 contained: party
+tweet: It’s officially Super Bowl week at Best Box! Who are you rooting for?! #superbowl #superbowlparty #superbowlwatchparty #watchparty #patriots #rams #cupcakes #watchpartysnacks #cookies…  https://www.instagram.com/p/BtLy0QyB5Ib/?utm_source=ig_twitter_share&igshid=pb29132an33l …
+tweet index: 24440 	722 contained: party
+tweet: Super Bowl cookies all week! #superbowl #superbowl53 #superbowlparty #superbowlfood #superbowlsnacks #eatthis #superbowlcookies #patriots #rams #root #team #nfl #football #footballgame…  https://www.instagram.com/p/BtOYEkXhQz5/?utm_source=ig_twitter_share&igshid=ukifkhfwyf4b …
+tweet index: 24441 	723 contained: party
+tweet: Ok football fans! Come grab your Super Bowl treats! We’ll also have a ton tomorrow! #superbowl #superbowl53 #superbowlparty #superbowlfood #superbowl2019 #superbowlsunday #superbowlbound…  https://www.instagram.com/p/BtTjHzHhCzA/?utm_source=ig_twitter_share&igshid=1fxei899hrewb …
+tweet index: 24555 	724 contained: weed
+tweet: think imma do my informative speech on weed 😂😂
+tweet index: 24590 	725 contained: high
+tweet: I did the accent challenge but I sound dumb . imma do it when i'm high 😂😂
+tweet index: 24599 	726 contained: bar
+tweet: yes sis https://twitter.com/lilbarbacoa/status/1108773914375798785 …
+tweet index: 24624 	727 contained: bar
+tweet: dude looking like he know he want a new barber but his haircuts always nice so he stuck https://twitter.com/UglyCalifornia/status/1108698168835878912 …
+tweet index: 24682 	728 contained: drunk
+tweet: get that nigga drunk & see who he call out for 🙂
+tweet index: 24804 	729 contained: high
+tweet: "my high school dance coach said ""Sometimes it’s better to have to wait because then you know you really want it"" whew a word"
+tweet index: 24808 	730 contained: drunk
+tweet: that damn drunk uno is no good 😂
+tweet index: 24859 	731 contained: drink
+tweet: was you drinking gummy bears ?????? https://twitter.com/FOGtizop/status/972924296485113862 …
+tweet index: 24927 	732 contained: drunk
+tweet: who else drunk ???
+tweet index: 24988 	733 contained: Club
+tweet: Tail Club !! So happy for you Lindo !! 😭👏🏾 https://twitter.com/Apex_Lindo/status/1117094564333084672 …
+tweet index: 25005 	734 contained: high
+tweet: high af
+tweet index: 25132 	735 contained: high
+tweet: i'm eating like i'm high 💀💀💀 fatass
+tweet index: 25163 	736 contained: high
+tweet: in highschool they always called me a hoe & I never had sex w/ ANY of them niggas . https://twitter.com/DejDonae/status/1041466432243097601 …
+tweet index: 25164 	737 contained: bar
+tweet: we all in college periodt . personally I would've wanted to go to a HBCU but they didn't have my major . at the end of the day we all in college breaking barriers . just doing it in different places https://twitter.com/DejDonae/status/1041466707741691905 …
+tweet index: 25232 	738 contained: high
+tweet: high off life rn man
+tweet index: 25343 	739 contained: bar
+tweet: I fell for a dude that I barely even know
+tweet index: 25411 	740 contained: high
+tweet: I fashitsho gotta babysit cuz my baby fever is crazy high
+tweet index: 25526 	741 contained: bar
+tweet: "Don't submit then quit. Apply for jobs like ""barista - Store# 09579, I-45 & 11TH"" at Starbucks, then look for people you might know at the company. You might be able to reach out to HR directly. Ready to apply? Check out the link in our bio. #Retail #Huntsville, TX"
+tweet index: 25559 	742 contained: drink
+tweet: if luke combs wrote beautiful crazy about me it would start: her day starts with a coffee and ends with a coffee and every drink she has in between is a coffee
+tweet index: 25685 	743 contained: bar
+tweet: my coworkers invited me to a bar last night but I’m not 21 )))):
+tweet index: 25806 	744 contained: bar
+tweet: Ngl it is fun https://twitter.com/mbarkerxo/status/1126308486952947713 …
+tweet index: 25871 	745 contained: smoke
+tweet: How you gonna risk it all for your team to put coach on a poster and then smoke the dunk? https://twitter.com/FootbaIIism/status/1118327720398794752 …
+tweet index: 25878 	746 contained: Bar
+tweet: How I was seeing @skymolive pic.twitter.com/IwuSyG2XPZ – at The Big E-Z Crawfish & Oyster Bar
+tweet index: 25891 	747 contained: bar
+tweet: My bestfriend got some letters and won’t stop barking in my mf ear 😂
+tweet index: 25999 	748 contained: bar
+tweet: "depends on the person. i understand good service but some ppl barely can afford to pay to get their hair done in general, so a tip just isn’t in the budget. i’ll refer ppl to you if that’s the case."
+tweet index: 26006 	749 contained: high
+tweet: "lmao this is true 😂 but look that was when we was in high school, both of us done graduated!"
+tweet index: 26023 	750 contained: bar
+tweet: lol go to 12th St bar
+tweet index: 26077 	751 contained: drink
+tweet: "lol pee before you go in & don’t drink anything, you’ll be fine"
+tweet index: 26116 	752 contained: bar
+tweet: any smart man ain’t gone trip bout his girl scamming money from another man.... https://twitter.com/ShibariDynamite/status/1123237164869984256 …
+tweet index: 26121 	753 contained: drunk
+tweet: okay so going out & getting drunk the night before i have an 8 am was dumb.... i missed class 🤦🏾‍♀️
+tweet index: 26129 	754 contained: drink
+tweet: "depends on what you drinking, ionn buy store shit. i get mine from a website, & it’s not in regular plastic either so you can leave it in the car & still drink it with no worries"
+tweet index: 26133 	755 contained: drink
+tweet: i feel you on the plastic 💀 i drink tap back home but here in huntsville i ain’t fwi
+tweet index: 26140 	756 contained: bar
+tweet: i know when barack die my daddy ain’t gone know what to do 😭 https://twitter.com/JaseyJentsch427/status/1123040130237894656 …
+tweet index: 26149 	757 contained: beer
+tweet: successfully finished my first bottle of beer
+tweet index: 26168 	758 contained: high
+tweet: elementary: focus daniel webster  middle school:  longfellow  high school: gilliam  college: sam houston state https://twitter.com/mmdvnz/status/1124522674888290304 …
+tweet index: 26175 	759 contained: drink
+tweet: we big drinking today 💀
+tweet index: 26214 	760 contained: bar
+tweet: 😂 we need to get this for barack! https://twitter.com/Alex4everz/status/1125506403291029504 …
+tweet index: 26243 	761 contained: drink
+tweet: 4 shots in & drinking wine 🙂
+tweet index: 26312 	762 contained: high
+tweet: highkey * 🤤 https://twitter.com/1OGH_/status/1108095584056020993 …
+tweet index: 26408 	763 contained: drink
+tweet: currently drinking at Chilis by myself lolol really need to invest in some Huntsville friends
+tweet index: 26417 	764 contained: bar
+tweet: "i’m genuinely curious as to how some people can talk shit about someone one day but hang out with them like they’re besties the next lolol that’s why i barely fw anyone, periodttt. y’all fake af and that shit is for the birds."
+tweet index: 26448 	765 contained: bar
+tweet: Ramadan Mubarak!! ☪️
+tweet index: 26523 	766 contained: high
+tweet: Dang. I really be having some high hopes.. THEN BOOM REALITY HIT LIKE A DIRECT DEPOSIT :-/
+tweet index: 26534 	767 contained: bar
+tweet: One of my sisters friends whose pre-med is talking and saying how hard classes are and that he barley gets any sleep.         My future is not gonna be fun.
+tweet index: 26689 	768 contained: club
+tweet: And now people on the left are saying they should be able to vote... https://twitter.com/historylvrsclub/status/1121198917591412736 …
+
+
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+                                   REFERENCES
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+    1. Sam Houston State University GPS coordinates:
+        https://www.findlatitudeandlongitude.com/?loc=Sam+Houston+State+University
+
+    2. SHSU academic schedules & dates:
+        https://www.shsu.edu/dept/registrar/calendars/academic-calendar.html
+
+    3. SHSU campus size:
+        https://www.usnews.com/best-colleges/sam-houston-state-3606
+
+    4. Student population:
+        https://www.collegetuitioncompare.com/edu/227881/sam-houston-state-university/enrollment/
+
+    5. Huntsville population:
+        https://suburbanstats.org/population/texas/how-many-people-live-in-huntsville
+
+    6. twint module:
+        https://github.com/twintproject/twint
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
