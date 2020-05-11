@@ -1,6 +1,7 @@
-# birdminer
+# Birdminer
 twitter forensic suite
 
+Research Topics in Comp Science (COSC 4340) project @ Sam Houston State University
 
 This is twitter scraping program written in python for an independant study
 course at Sam houston stata university. This program utilizes the "twint" 
